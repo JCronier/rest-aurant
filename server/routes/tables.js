@@ -1,12 +1,12 @@
 import express from 'express';
 
 // Handlers.
-import { getItems, createItem } from '../controllers/items.js'
+import { createTable, getTables } from '../controllers/tables.js'
 
 // Create new Express Router.
 const router = express.Router();
 
-router.get('/', getItems);
-router.post('/', createItem);
+router.get('/', getTables);
+router.post('/', createTable);
 
 export default router;
