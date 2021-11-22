@@ -9,7 +9,8 @@ const itemSchema = mongoose.Schema({
     enum: ['Food', 'Drink', 'Dessert'],
   },
   options: [String],
-  tags: [String]
+  tags: [String],
+  image_url: String
 });
 
 const Item = mongoose.model('Item', itemSchema);
