@@ -1,6 +1,6 @@
 export default (items = [], action) => {
   switch (action.type) {
-    case 'FETCH_ALL':
+    case 'ITEMS/FETCH_ALL':
       return action.payload;
     default:
       return items;

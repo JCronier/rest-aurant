@@ -7,7 +7,7 @@ export const getItems = () => async (dispatch) => {
 
     console.log(data);
 
-    dispatch({ type: 'FETCH_ALL', payload: data });
+    dispatch({ type: 'ITEMS/FETCH_ALL', payload: data });
   } catch (error) {
     console.log(error.message);
   }

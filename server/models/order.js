@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const orderSchema = mongoose.Schema({
-  id: Number,
+  _id: Number,
   table: {
     type: Number,
     field: "id",
@@ -46,7 +46,7 @@ export default Order;
 
 // options: [
 //   {
-//     item_id: 123,
+//     item_id: ObjectId('12312312'sdadsdkjfnsdf),
 //     values: []
 //   },
 //   {
