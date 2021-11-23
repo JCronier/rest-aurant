@@ -11,7 +11,7 @@ const itemSchema = mongoose.Schema({
   options: [String],
   tags: [String],
   image_url: String
-});
+}, { minimize: false });
 
 const Item = mongoose.model('Item', itemSchema);
 

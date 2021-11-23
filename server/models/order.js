@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const orderSchema = mongoose.Schema({
-  _id: Number,
+  id: Number,
   table: {
     type: Number,
     field: "id",
@@ -12,49 +12,9 @@ const orderSchema = mongoose.Schema({
     type: Boolean,
     default: false
   },
-  isOrdered: {
-    type: Boolean,
-    default: false
-  },
   options: [Object]
 }, { minimize: false });
 
 const Order = mongoose.model('Order', orderSchema);
 
 export default Order;
-
-// options: {
-//   type: [{
-//     item_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Item'},
-//     options: [String]
-//   }]
-// }
-
-// options: [{type: mongoose.Schema.Types.ObjectId, ref: 'Option'}]
-
-// const options = new mongoose.Schema({
-//   item: {type: mongoose.Schema.Types.ObjectId, ref: 'Item'},
-//   options: [String]
-// });
-
-// options: {}
-
-// 1001.2317 = ['no pickles', 'mild']
-
-//options: {}
-
-
-// options: [
-//   {
-//     item_id: ObjectId('12312312'sdadsdkjfnsdf),
-//     values: []
-//   },
-//   {
-//     item_id: 123,
-//     values: []
-//   },
-//   {
-//     item_id: 477,
-//     values: []
-//   }
-// ]

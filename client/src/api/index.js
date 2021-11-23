@@ -9,6 +9,7 @@ export const fetchItems = () => axios.get(items_url);
 const orders_url = 'http://localhost:3001/orders';
 
 export const fetchOrders = () => axios.get(orders_url);
+export const createOrder = (newOrder) => axios.post(orders_url, newOrder);
 
 // Tables
 const tables_url = 'http://localhost:3001/tables';

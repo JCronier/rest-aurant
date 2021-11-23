@@ -11,19 +11,16 @@ export const getOrders = async (req, res) => {
 };
 
 export const createOrder = async (req, res) => {
-  const id = Math.floor((Math.random() * 100) + 1);
-  const { table } = req.body;
+  const order = req.body;
 
-  const optionsObj = {}
-
-  const newOrder = new Order({ id, table });
+  const newOrder = new Order(order);
 
   try {
-      await newOrder.save();
+    await newOrder.save();
 
-      res.status(201).json(newOrder);
+    res.status(201).json(newOrder);
   } catch (error) {
-      res.status(409).json({ message: error.message });
+    res.status(409).json({ message: error.message });
   };
 };
 
@@ -33,8 +30,8 @@ export const updateOrder = async (req, res) => {
 
   const updatedOrder = { isPaid, isOrdered, options }
 
-  await Order.updateOne({ id:id }, {'$push': {items: items}});
-  await Order.updateOne({ id:id }, {'$set': updatedOrder});
+  await Order.updateOne({ id: id }, { '$push': { items: items } });
+  await Order.updateOne({ id: id }, { '$set': updatedOrder });
 
   res.status(202).json();
 };
