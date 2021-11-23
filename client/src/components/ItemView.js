@@ -29,7 +29,7 @@ const ItemView = (props) => {
       <li key={index}>
         <input id={index} type="checkbox" name={option} value={option} checked={optionsState[index]} onChange={() => handleOnChange(index)}>
         </input>
-        <label for={option}>
+        <label htmlFor={option}>
           {option}
         </label>
       </li>
