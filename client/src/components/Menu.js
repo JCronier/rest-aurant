@@ -15,6 +15,7 @@ const Menu = (props) => {
       {
         !items.length ? "Loading..." : (items.map((item) => (<MenuItem key={item._id} item={item} onClick={props.changeView} setItem={props.setItem} />)))
       }
+      {props.state.order.length && <button onClick={() => props.changeView('CART')}>Go to checkout/Cart</button>}
     </div>
   );
 };

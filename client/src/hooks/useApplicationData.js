@@ -29,13 +29,20 @@ const useApplicationData = () => {
   const setItem = item => setState({ ...state, item });
 
   const addItem = (item, options) => {
+    const newItem = {
+      item_id: item,
+      optionValues: options
+    };
 
-  }
-  // const addItem function (item)
-  // pushes item to order array in state.order
+    setState(prev => ({ ...prev, order: [...prev.order, newItem] }));
+  };
 
+
+  //pesudocode
   // const removeitem function (itemIndex)
   // removes item from order array in state.order
+
+
 
   // //updates the state to match when any other effect is made
   // useEffect(() => {

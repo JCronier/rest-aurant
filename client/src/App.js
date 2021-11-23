@@ -8,6 +8,8 @@ import { getItems } from './actions/items';
 // Components
 import Menu from './components/Menu';
 import ItemView from './components/ItemView';
+import CartView from './components/CartView';
+import Ordered from './components/Ordered';
 
 // Hooks
 import useApplicationData from "./hooks/useApplicationData";
@@ -15,6 +17,9 @@ import useApplicationData from "./hooks/useApplicationData";
 // Global States
 const MENU = 'MENU';
 const ITEM = 'ITEM';
+const CART = 'CART';
+const ORDERED = 'ORDERED';
+const PAYBILL = 'PAYBILL';
 
 const App = () => {
   // Keeps track of VIEW
@@ -23,7 +28,8 @@ const App = () => {
   // Keeps track of CURRENT ITEM
   const {
     state,
-    setItem
+    setItem,
+    addItem
   } = useApplicationData();
 
   const changeView = (newView) => {
@@ -39,8 +45,10 @@ const App = () => {
   return (
     <div>
       <h1>App</h1>
-      {view[view.length - 1] === MENU && <Menu view={view} changeView={changeView} setItem={setItem} />}
-      {view[view.length - 1] === ITEM && <ItemView itemId={state} />}
+      {view[view.length - 1] === MENU && <Menu view={view} changeView={changeView} setItem={setItem} state={state} />}
+      {view[view.length - 1] === ITEM && <ItemView itemId={state} changeView={changeView} addItem={addItem} />}
+      {view[view.length - 1] === CART && <CartView state={state} changeView={changeView} />}
+      {view[view.length - 1] === ORDERED && <Ordered changeView={changeView} />}
     </div>
   )
 };
