@@ -7,7 +7,7 @@ const orderSchema = mongoose.Schema({
     field: "id",
     ref: "Table"
   },
-  items: [{type: mongoose.Schema.Types.ObjectId, ref: 'Item'}],
+  items: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Item' }],
   isPaid: {
     type: Boolean,
     default: false
@@ -16,7 +16,7 @@ const orderSchema = mongoose.Schema({
     type: Boolean,
     default: false
   },
-  options: {type: mongoose.Schema.Types.Mixed, default: {}},
+  options: [Object]
 }, { minimize: false });
 
 const Order = mongoose.model('Order', orderSchema);
@@ -42,3 +42,19 @@ export default Order;
 // 1001.2317 = ['no pickles', 'mild']
 
 //options: {}
+
+
+// options: [
+//   {
+//     item_id: 123,
+//     values: []
+//   },
+//   {
+//     item_id: 123,
+//     values: []
+//   },
+//   {
+//     item_id: 477,
+//     values: []
+//   }
+// ]
