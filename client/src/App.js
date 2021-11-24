@@ -11,6 +11,7 @@ import Menu from './components/Menu';
 import ItemView from './components/ItemView';
 import CartView from './components/CartView';
 import OrderedView from './components/OrderedView';
+import TableView from './components/TableView'
 
 // Context API
 import OrderProvider from "./providers/OrderProvider"
@@ -23,9 +24,6 @@ const ITEM = 'ITEM';
 const CART = 'CART';
 const ORDERED = 'ORDERED';
 const PAYBILL = 'PAYBILL';
-
-let params = new URLSearchParams(window.location.search);
-let table = params.get('table');
 
 const App = () => {
 
@@ -47,7 +45,6 @@ const App = () => {
   useEffect(() => {
     dispatch(getItems());
     dispatch(getOrders());
-    console.log("table: ", table)
   }, [dispatch])
 
   // Somehow table gets assigned.
@@ -71,6 +68,7 @@ const App = () => {
           {view[view.length - 1] === ORDERED && <OrderedView />}
         </OrderProvider>
       </div>
+      <TableView />
     </div>
   );
 

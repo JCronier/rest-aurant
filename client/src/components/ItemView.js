@@ -1,5 +1,5 @@
 // React
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // Context API
 import { useContext } from 'react';
@@ -16,6 +16,7 @@ const ItemView = () => {
 
   const { state, resetItem, addItemToOrder } = useContext(orderContext);
   const { changeView } = useContext(viewContext);
+
 
   // Retrieve all records of the Item model
   // that is in the items store.

@@ -15,3 +15,4 @@ export const createOrder = (newOrder) => axios.post(orders_url, newOrder);
 const tables_url = 'http://localhost:3001/tables';
 
 export const fetchTables = () => axios.get(tables_url);
+export const createTable = (newTable) => axios.post(tables_url, newTable);
