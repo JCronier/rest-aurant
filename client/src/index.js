@@ -11,11 +11,16 @@ import reducers from './reducers';
 // Components
 import App from './App';
 
+// Context API
+import ViewProvider from "./providers/ViewProvider";
+
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <ViewProvider>
+      <App />
+    </ViewProvider>
   </Provider>,
   document.getElementById('root')
 );

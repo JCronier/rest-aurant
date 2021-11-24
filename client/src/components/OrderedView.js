@@ -1,10 +1,18 @@
 // React
 import React from "react";
 
+// Context API
+import { useContext } from 'react';
+import { orderContext } from '../providers/OrderProvider';
+import { viewContext } from "../providers/ViewProvider";
+
 // View States
 const PAYBILL = 'PAYBILL';
 
-const OrderedView = ({ changeView }) => {
+const OrderedView = () => {
+
+  const { } = useContext(orderContext);
+  const { changeView } = useContext(viewContext);
 
   return (
     <div>

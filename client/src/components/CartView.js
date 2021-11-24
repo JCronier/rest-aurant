@@ -1,6 +1,11 @@
 // React
 import React from 'react';
 
+// Context API
+import { useContext } from 'react';
+import { orderContext } from '../providers/OrderProvider';
+import { viewContext } from '../providers/ViewProvider';
+
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrder } from '../actions/orders';
@@ -9,7 +14,10 @@ import { createOrder } from '../actions/orders';
 const MENU = 'MENU';
 const ORDERED = 'ORDERED';
 
-const CartView = ({ state, changeView, resetOrder }) => {
+const CartView = () => {
+
+  const { state, resetOrder } = useContext(orderContext);
+  const { changeView } = useContext(viewContext);
 
   // Retrieve all records of the Item model
   // that is in the items store.

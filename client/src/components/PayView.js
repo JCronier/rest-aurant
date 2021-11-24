@@ -1,6 +1,15 @@
 import React from "react";
 
-const PayView = (props) => {
+// Context API
+import { useContext } from 'react';
+import { orderContext } from '../providers/OrderProvider';
+import { viewContext } from "../providers/ViewProvider";
+
+const PayView = ({ }) => {
+
+  const { } = useContext(orderContext);
+  const { } = useContext(viewContext);
+
   return (
     <div>
       <h1>Pay your bill</h1>
