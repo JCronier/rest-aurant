@@ -22,6 +22,9 @@ const CART = 'CART';
 const ORDERED = 'ORDERED';
 const PAYBILL = 'PAYBILL';
 
+let params = new URLSearchParams(window.location.search);
+let table = params.get('table');
+
 const App = () => {
 
   // Allows us to dispatch any action to the store by
@@ -40,6 +43,7 @@ const App = () => {
   useEffect(() => {
     dispatch(getItems());
     dispatch(getOrders());
+    console.log("table: ", table)
   }, [dispatch])
 
   // Keeps track of what View component must
@@ -63,7 +67,7 @@ const App = () => {
   // 
   // Note: Is it better to refer to a table with its ObjectID, id, or qr_code?
   useEffect(() => {
-    setTable(1);
+    setTable(table);
   }, []);
 
   return (

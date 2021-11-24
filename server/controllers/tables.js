@@ -11,10 +11,9 @@ export const getTables = async (req, res) => {
 };
 
 export const createTable = async (req, res) => {
-  const { id } = req.body;
-  const qrCode = "Hello, i am a qr code";
+  const { id, qrCodeUrl } = req.body;
 
-  const newTable = new Table({ id, qr_code: qrCode })
+  const newTable = new Table({ id, qr_code: "https:" + qrCodeUrl })
 
   try {
     await newTable.save();
@@ -24,4 +23,3 @@ export const createTable = async (req, res) => {
     res.status(409).json({ message: error.message });
   }
 };
-
