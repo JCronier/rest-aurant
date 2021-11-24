@@ -12,8 +12,10 @@ import ItemView from './components/ItemView';
 import CartView from './components/CartView';
 import OrderedView from './components/OrderedView';
 
-// Custom Hooks
-import useApplicationData from "./hooks/useApplicationData";
+// Context API
+import OrderProvider from "./providers/OrderProvider"
+import { useContext } from 'react';
+import { viewContext } from './providers/ViewProvider';
 
 // View States
 const MENU = 'MENU';
@@ -23,6 +25,8 @@ const ORDERED = 'ORDERED';
 const PAYBILL = 'PAYBILL';
 
 const App = () => {
+
+  const { view } = useContext(viewContext);
 
   // Allows us to dispatch any action to the store by
   // adding an action as an argument.
@@ -42,29 +46,13 @@ const App = () => {
     dispatch(getOrders());
   }, [dispatch])
 
-  // Keeps track of what View component must
-  // get rendered (e.g., ItemView, CartView, etc.).
-  //
-  // view is an array of past and current view states (e.g., ['MENU', 'ITEM']).
-  const [view, setView] = useState([MENU]);
-
-  // See client/src/hooks/useApplicationData.js
-  // for detailed purpose of state, setItem, addItemToOrder, and setTable.
-  const { state, setItem, addItemToOrder, setTable, resetItem, resetOrder } = useApplicationData();
-
-  // Helper function for specifically modifying:
-  //  view
-  const changeView = (newView) => {
-    setView(prev => [...prev, newView]);
-  }
-
   // Somehow table gets assigned.
   // For now, assume you scanned table with some identification of 1.
   // 
   // Note: Is it better to refer to a table with its ObjectID, id, or qr_code?
-  useEffect(() => {
-    setTable(1);
-  }, []);
+  // useEffect(() => {
+  //   setTable(1);
+  // }, []);
 
   return (
     <div>
@@ -72,10 +60,12 @@ const App = () => {
         <h1>I'THAI'LY</h1>
       </div>
       <div>
-        {view[view.length - 1] === MENU && <Menu state={state} changeView={changeView} setItem={setItem} />}
-        {view[view.length - 1] === ITEM && <ItemView state={state} changeView={changeView} resetItem={resetItem} addItemToOrder={addItemToOrder} />}
-        {view[view.length - 1] === CART && <CartView state={state} changeView={changeView} resetOrder={resetOrder} />}
-        {view[view.length - 1] === ORDERED && <OrderedView changeView={changeView} />}
+        <OrderProvider>
+          {view[view.length - 1] === MENU && <Menu />}
+          {view[view.length - 1] === ITEM && <ItemView />}
+          {view[view.length - 1] === CART && <CartView />}
+          {view[view.length - 1] === ORDERED && <OrderedView />}
+        </OrderProvider>
       </div>
     </div>
   );

@@ -1,13 +1,21 @@
 // React
 import React, { useState } from 'react';
 
+// Context API
+import { useContext } from 'react';
+import { orderContext } from '../providers/OrderProvider';
+import { viewContext } from '../providers/ViewProvider';
+
 // Redux
 import { useSelector } from 'react-redux';
 
 // View States
 const MENU = 'MENU';
 
-const ItemView = ({ state, changeView, resetItem, addItemToOrder }) => {
+const ItemView = () => {
+
+  const { state, resetItem, addItemToOrder } = useContext(orderContext);
+  const { changeView } = useContext(viewContext);
 
   // Retrieve all records of the Item model
   // that is in the items store.

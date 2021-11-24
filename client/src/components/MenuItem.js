@@ -1,10 +1,16 @@
 // React
 import React from 'react';
 
+// Context API
+import { useContext } from 'react';
+import { orderContext } from '../providers/OrderProvider';
+
 // View States
 const ITEM = 'ITEM';
 
-const MenuItem = ({ item, changeView, setItem }) => {
+const MenuItem = ({ item, changeView }) => {
+
+  const { setItem } = useContext(orderContext);
 
   // Function that updates the view state and item to focus on.
   const viewDetails = () => {
