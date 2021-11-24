@@ -30,10 +30,6 @@ const App = () => {
 
   // Allows us to dispatch any action to the store by
   // adding an action as an argument.
-  //
-  // Note: you don't have to assign the return of useDispatch() to a variable,
-  //       but you would be typing useDispatch(<any_action>) every time you want
-  //       to dispatch <any_action> to the store.
   const dispatch = useDispatch();
 
   // As App gets rendered, a dispatch with the getItems() action is sent to the store.
