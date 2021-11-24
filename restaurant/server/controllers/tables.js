@@ -1,4 +1,4 @@
-import { Mongoose } from 'mongoose';
+import mongoose from 'mongoose';
 import Table from '../models/table.js';
 
 export const getTables = async (req, res) => {

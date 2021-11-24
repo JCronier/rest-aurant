@@ -8,7 +8,7 @@ dotenv.config();
 
 // Routers
 import itemRoutes from './routes/items.js';
-import orderRoutes from './routes/oders.js';
+import orderRoutes from './routes/orders.js';
 import tableRoutes from './routes/tables.js';
 
 // Start New Express Application

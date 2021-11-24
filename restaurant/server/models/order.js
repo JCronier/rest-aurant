@@ -13,7 +13,7 @@ const orderSchema = mongoose.Schema({
     default: false
   },
   options: [Object]
-}, { minimize: falsse });
+}, { minimize: false });
 
 const Order = mongoose.model('Order', orderSchema);
 
