@@ -11,6 +11,7 @@ import Menu from './components/Menu';
 import ItemView from './components/ItemView';
 import CartView from './components/CartView';
 import OrderedView from './components/OrderedView';
+import PayView from './components/PayView';
 
 // Context API
 import OrderProvider from "./providers/OrderProvider"
@@ -65,6 +66,7 @@ const App = () => {
           {view[view.length - 1] === ITEM && <ItemView />}
           {view[view.length - 1] === CART && <CartView />}
           {view[view.length - 1] === ORDERED && <OrderedView />}
+          {view[view.length - 1] === PAYBILL && <PayView />}
         </OrderProvider>
       </div>
     </div>
