@@ -1,3 +1,4 @@
+import { Mongoose } from 'mongoose';
 import Order from '../models/order.js';
 
 export const getOrders = async (req, res) => {
