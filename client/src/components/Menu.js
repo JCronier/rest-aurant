@@ -1,5 +1,5 @@
 // React
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // Context API
 import { useContext } from 'react';
@@ -15,6 +15,10 @@ import MenuItem from './MenuItem';
 // View States
 const CART = 'CART';
 
+const FOOD = "Food";
+const DRINK = "Drink";
+const DESSERT = "Dessert";
+
 const Menu = () => {
 
   const params = new URLSearchParams(window.location.search);
@@ -26,6 +30,8 @@ const Menu = () => {
   useEffect(() => {
     setTable(parseInt(table));
   }, []);
+
+  const [menuView, setMenuView] = useState(FOOD);
 
 
   // Retrieve all records of the Item model
@@ -54,16 +60,25 @@ const Menu = () => {
   //              which then renders the corresponding component.
   //
   // setItem - Function that helps the application know which Item record is in focus.
-  const generateMenuItems = () => (
+  const generateMenuItems = (category) => (
     items.map((item) => (
-      <MenuItem key={item._id} item={item} changeView={changeView} setItem={setItem} />
+      item.category === category && <MenuItem key={item._id} item={item} changeView={changeView} setItem={setItem} />
     ))
   );
+
+  const changeMenuView = (id) => {
+    setMenuView(id);
+  };
 
   return (
     <div>
       <div>
-        {!items.length ? "Loading..." : generateMenuItems()}
+        <button id={FOOD} onClick={(event) => changeMenuView(event.target.id)} >Food</button>
+        <button id={DRINK} onClick={(event) => changeMenuView(event.target.id)}>Drinks</button>
+        <button id={DESSERT} onClick={(event) => changeMenuView(event.target.id)}>Desserts</button>
+      </div>
+      <div>
+        {!items.length ? "Loading..." : generateMenuItems(menuView)}
       </div>
       <br />
       <div>
