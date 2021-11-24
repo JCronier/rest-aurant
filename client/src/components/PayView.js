@@ -5,31 +5,25 @@ import { useContext } from 'react';
 import { orderContext } from '../providers/OrderProvider';
 import { viewContext } from "../providers/ViewProvider";
 
-// Stripe API
-import {Elements} from '@stripe/react-stripe-js';
-import {loadStripe} from '@stripe/stripe-js';
+// // Stripe API
+// import {loadStripe} from '@stripe/stripe-js';
+// import {Elements} from '@stripe/react-stripe-js';
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
 
 //Components
 import CheckoutForm from "./CheckoutForm";
-
-//stripe public key
-const stripePromise = loadStripe('pk_test_A7jK4iCYHL045qgjjfzAfPxu');
+import { CardElement } from "@stripe/react-stripe-js";
 
 
 
-const PayView = ({ }) => {
 
+const PayView = () => {
 
   const { state } = useContext(orderContext);
   // const {  } = useContext(viewContext);
 
-  const options = {
-    // passing the client secret obtained from the server
-    clientSecret: '{{CLIENT_SECRET}}',
-  };
 
   //database pull
   const items = useSelector((state) => state.items);
@@ -38,7 +32,7 @@ const PayView = ({ }) => {
     const itemObj = items.find((item) => item._id ===  cartItem.item_id)
 
     return (
-      <div>
+      <div key={cartItem.item_id}>
         {itemObj.name} || {itemObj.price}
       </div>
     )
@@ -50,25 +44,19 @@ const PayView = ({ }) => {
       result += items.find((item) => item._id ===  cartItem.item_id).price
     });
     return result;
-  } 
-  //   const itemObj = items.find((item) => item._id ===  cartItem.item_id);
-  //   const result = result + itemObj.price;
-  //   return result;
-  // });
-
-  //{items.find((item) => item._id === cartItem.item_id).name}
+  }
 
   return (
     <div>
       <h1>Pay your bill</h1>
 
-      <Elements stripe={stripePromise} options={options}>
-        Your order:
+      test: {process.env.REACT_APP_TEST}
+
+      Your order:
         {cart}
-        Your subtotal:
-        {subtotal(state.order)} 
-        <CheckoutForm />
-      </Elements>
+      Your subtotal:
+      {subtotal(state.order)}
+        <CheckoutForm amount={subtotal(state.order)}/>
     </div>
   );
 };

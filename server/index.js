@@ -10,6 +10,7 @@ dotenv.config()
 import itemRoutes from './routes/items.js';
 import orderRoutes from './routes/orders.js';
 import tableRoutes from './routes/tables.js';
+import paymentIntent from './routes/paymentIntent.js'
 
 // Start new Express application.
 const app = express();
@@ -23,6 +24,7 @@ app.use(cors());
 app.use('/items', itemRoutes);
 app.use('/orders', orderRoutes);
 app.use('/tables', tableRoutes);
+app.use('/paymentintent', paymentIntent)
 
 // MongoDB
 const CONNECTION_URL = process.env.CONNECTION_URL
