@@ -6,6 +6,7 @@ const items_url = `http://localhost:3001/items`;
 export const fetchItems = () => axios.get(items_url);
 export const createItem = (newItem) => axios.post(items_url, newItem);
 export const updateItem = (_id, updatedItem) => axios.patch(`${items_url}/${_id}`, updatedItem);
+export const deleteItem = (_id) => axios.delete(`${items_url}/${_id}`);
 
 // Orders
 const orders_url = `http://localhost:3001/orders`;

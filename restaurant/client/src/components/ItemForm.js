@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { createItem, updateItem } from '../actions/items';
-import items from '../reducers/items';
 
 const ItemForm = ({ currentItemId, setCurrentItemId }) => {
 

@@ -1,7 +1,13 @@
 // React
 import React from 'react';
 
+// Redux
+import { useDispatch } from 'react-redux';
+import { deleteItem } from '../actions/items';
+
 const Item = ({ item, setCurrentItemId }) => {
+
+  const dispatch = useDispatch();
 
   return (
     <div>
@@ -13,7 +19,7 @@ const Item = ({ item, setCurrentItemId }) => {
       <div>options: {JSON.stringify(item.options)}</div>
       <div>tags: {JSON.stringify(item.tags)}</div>
       <button type="button" onClick={() => setCurrentItemId(item._id)}>UPDATE</button>
-      <button>DELETE</button>
+      <button type="button" onClick={() => dispatch(deleteItem(item._id))}>DELETE</button>
       <br />
       <br />
     </div>

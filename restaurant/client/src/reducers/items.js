@@ -6,6 +6,8 @@ export default (items = [], action) => {
       return [...items, action.payload];
     case 'ITEMS/UPDATE':
       return items.map((item) => item._id === action.payload._id ? action.payload : item);
+    case 'ITEMS/DELETE':
+      return items.filter((item) => item._id !== action.payload);
     default:
       return items;
   }
