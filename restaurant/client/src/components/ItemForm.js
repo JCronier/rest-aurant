@@ -32,27 +32,6 @@ const ItemForm = ({ currentItemId, setCurrentItemId }) => {
   // adding an action as an argument.
   const dispatch = useDispatch();
 
-  // Function to handle when the form is submitted.
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    let options = [];
-    let tags = [];
-
-    if (itemData.options.length > 0 && itemData.tags.length > 0) {
-      options = itemData.options.split(',').map(option => option.trim()).filter(option => option !== '');
-      tags = itemData.tags.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
-    }
-
-    if (currentItemId) {
-      dispatch(updateItem(currentItemId, { ...itemData, price: Number(itemData.price), options, tags }));
-    } else {
-      dispatch(createItem({ ...itemData, price: Number(itemData.price), options, tags }));
-    }
-
-    clear();
-  };
-
   // Clears itemData state which clears the form when
   // creating or updating an Item.
   const clear = () => {
@@ -65,6 +44,30 @@ const ItemForm = ({ currentItemId, setCurrentItemId }) => {
       options: '',
       tags: ''
     });
+  };
+
+  // Function to handle when the form is submitted.
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    let options = [];
+    let tags = [];
+
+    if (itemData.options.length > 0) {
+      options = itemData.options.split(',').map(option => option.trim()).filter(option => option !== '');
+    }
+
+    if (itemData.tags.length > 0) {
+      tags = itemData.tags.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
+    }
+
+    if (currentItemId) {
+      dispatch(updateItem(currentItemId, { ...itemData, price: Number(itemData.price), options, tags }));
+      clear();
+    } else {
+      dispatch(createItem({ ...itemData, price: Number(itemData.price), options, tags }));
+      clear();
+    }
   };
 
   return (
