@@ -13,6 +13,8 @@ import CartView from './components/CartView';
 import OrderedView from './components/OrderedView';
 import PayView from './components/PayView';
 
+import TableView from './components/TableView'
+
 // Context API
 import OrderProvider from "./providers/OrderProvider"
 import { useContext } from 'react';
@@ -49,7 +51,7 @@ const App = () => {
 
   // Somehow table gets assigned.
   // For now, assume you scanned table with some identification of 1.
-  // 
+  //
   // Note: Is it better to refer to a table with its ObjectID, id, or qr_code?
   // useEffect(() => {
   //   setTable(1);
@@ -69,6 +71,7 @@ const App = () => {
           {view[view.length - 1] === PAYBILL && <PayView />}
         </OrderProvider>
       </div>
+      <TableView />
     </div>
   );
 
