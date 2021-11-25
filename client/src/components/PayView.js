@@ -43,14 +43,12 @@ const PayView = () => {
     orderState.forEach(cartItem => {
       result += items.find((item) => item._id ===  cartItem.item_id).price
     });
-    return result;
+    return Math.round(result * 100);
   }
 
   return (
     <div>
       <h1>Pay your bill</h1>
-
-      test: {process.env.REACT_APP_TEST}
 
       Your order:
         {cart}

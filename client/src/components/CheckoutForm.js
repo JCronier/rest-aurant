@@ -40,14 +40,18 @@ const CheckoutForm = (props) => {
     axios.get((`paymentintent/?amount=${props.amount}`)).then(
       (res) => {
         setSecret(res.data.clientSecret)
+        console.log(secret)
       }
+    ).then(
+      console.log(secret)
     )
+    
   }, [])
   
   return (
     <form onSubmit={handleSubmit}>
       <CardElement/>
-      <button></button>
+      <button>Submit</button>
     </form>
     
   )
