@@ -6,7 +6,7 @@ const Table = ({ table }) => {
   return (
     <div>
       <div>_id: {table._id}</div>
-      <div>_d: {table.id}</div>
+      <div>id: {table.id}</div>
       <div>qr_code: {table.qr_code}</div>
       <div>
         <div>
