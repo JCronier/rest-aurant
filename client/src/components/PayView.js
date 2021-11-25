@@ -1,7 +1,7 @@
 import React from "react";
 
 // Context API
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { orderContext } from '../providers/OrderProvider';
 import { viewContext } from "../providers/ViewProvider";
 
@@ -12,10 +12,8 @@ import { viewContext } from "../providers/ViewProvider";
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
 
-//Components
+//Components for the Stripe API
 import CheckoutForm from "./CheckoutForm";
-import { CardElement } from "@stripe/react-stripe-js";
-
 
 
 
@@ -43,6 +41,7 @@ const PayView = () => {
     orderState.forEach(cartItem => {
       result += items.find((item) => item._id ===  cartItem.item_id).price
     });
+    //Stripe API accepts "smallest currency unit (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency)." so we are charging in cents rounded to the nearest cent
     return Math.round(result * 100);
   }
 
