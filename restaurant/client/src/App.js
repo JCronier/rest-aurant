@@ -15,6 +15,8 @@ import ItemForm from './components/ItemForm';
 
 const App = () => {
 
+  const [currentItemId, setCurrentItemId] = useState(null);
+
   // Allows us to dispatch any action to the store by
   // adding an action as an argument.
   const dispatch = useDispatch();
@@ -32,7 +34,7 @@ const App = () => {
       </div>
       <div>
         <h1>Items</h1>
-        <ItemList />
+        <ItemList setCurrentItemId={setCurrentItemId} />
       </div>
       <div>
         <h1>Orders</h1>
@@ -43,7 +45,7 @@ const App = () => {
         <TableList />
       </div>
       <div>
-        <ItemForm />
+        <ItemForm currentItemId={currentItemId} setCurrentItemId={setCurrentItemId} />
       </div>
     </div>
   );

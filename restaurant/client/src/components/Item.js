@@ -1,7 +1,7 @@
 // React
 import React from 'react';
 
-const Item = ({ item }) => {
+const Item = ({ item, setCurrentItemId }) => {
 
   return (
     <div>
@@ -12,7 +12,7 @@ const Item = ({ item }) => {
       <div>category: {item.category}</div>
       <div>options: {JSON.stringify(item.options)}</div>
       <div>tags: {JSON.stringify(item.tags)}</div>
-      <button>UPDATE</button>
+      <button type="button" onClick={() => setCurrentItemId(item._id)}>UPDATE</button>
       <button>DELETE</button>
       <br />
       <br />

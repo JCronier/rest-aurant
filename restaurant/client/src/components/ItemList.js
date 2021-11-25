@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 // Components
 import Item from './Item';
 
-const ItemList = () => {
+const ItemList = ({ setCurrentItemId }) => {
 
   // Retrieve all records of the Item model
   // that is in the items store.
@@ -16,7 +16,7 @@ const ItemList = () => {
   // Generate array of Item components.
   const generateItems = () => (
     items.map((item) => (
-      <Item key={item._id} item={item} />
+      <Item key={item._id} item={item} setCurrentItemId={setCurrentItemId} />
     ))
   );
 

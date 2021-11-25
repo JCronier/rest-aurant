@@ -4,6 +4,8 @@ export default (items = [], action) => {
       return action.payload;
     case 'ITEMS/CREATE':
       return [...items, action.payload];
+    case 'ITEMS/UPDATE':
+      return items.map((item) => item._id === action.payload._id ? action.payload : item);
     default:
       return items;
   }
