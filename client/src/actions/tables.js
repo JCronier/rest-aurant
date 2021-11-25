@@ -34,3 +34,12 @@ export const createTable = async (id) => {
     console.log(error.message);
   }
 };
+
+export const updateStatus = async (id, status) => {
+  try {
+    const message = await api.updateTableStatus(id, status);
+    console.log(message);
+  } catch (error) {
+    console.log(error.message);
+  }
+};

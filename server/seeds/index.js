@@ -1,8 +1,8 @@
 import seeder from "mongoose-seed";
 import dotenv from "dotenv";
-import Item from "../models/item";
-import Table from "../models/table";
-import Order from "../models/order";
+import Item from "/home/jordan/lighthouse/projects/rest-aurant/server/models/item.js";
+import Table from "/home/jordan/lighthouse/projects/rest-aurant/server/models/table.js";
+import Order from "/home/jordan/lighthouse/projects/rest-aurant/server/models/order.js";
 
 dotenv.config();
 
@@ -11,19 +11,20 @@ const CONNECTION_URL = process.env.CONNECTION_URL;
 seeder.connect(CONNECTION_URL, () => {
   seeder.loadModels([
     "../models/item.js",
-    "../models/order.js",
-    "../models/table.js"
+    "../models/table.js",
+    "../models/order.js"
   ]);
 
-  seeder.populateModels(data, () => {
-    seeder.disconnect();
-  });
-
-  // seeder.clearModels([Item, Order, Table], () => {
-  //   seeder.populateModels(data, function() {
-  //     seeder.disconnect();
-  //   });
+  // seeder.populateModels(data, () => {
+  //   seeder.disconnect();
   // });
+
+  seeder.clearModels([Table], () => {
+    // seeder.populateModels(data, function() {
+       seeder.disconnect();
+      console.log("done seeding");
+    // });
+  });
 });
 
 const data = [

@@ -5,6 +5,7 @@ const tableSchema = mongoose.Schema({
   qr_code: String,
   status: {
     type: String,
+    enum: ["VACANT", "OCCUPIED", "PAID"],
     default: "VACANT"
   }
 }, { minimize: false });

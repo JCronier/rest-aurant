@@ -12,6 +12,9 @@ import { useSelector } from 'react-redux';
 // Components
 import MenuItem from './MenuItem';
 
+// Actions
+import { updateStatus } from '../actions/tables.js';
+
 // View States
 const CART = 'CART';
 
@@ -29,6 +32,7 @@ const Menu = () => {
 
   useEffect(() => {
     setTable(parseInt(table));
+    updateStatus(table, "OCCUPIED");
   }, []);
 
   const [menuView, setMenuView] = useState(FOOD);
@@ -67,7 +71,7 @@ const Menu = () => {
   );
 
   const changeMenuView = (id) => {
-    setMenuView(id);
+    setMenuView(() => id);
   };
 
   return (

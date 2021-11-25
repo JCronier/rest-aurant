@@ -23,3 +23,15 @@ export const createTable = async (req, res) => {
     res.status(409).json({ message: error.message });
   }
 };
+
+export const updateTableStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    await Table.findOneAndUpdate({id}, {status});
+    res.status(204).send("Updated successfully");
+  } catch (error) {
+    res.status(409).json({ message: error.message });
+  }
+}
