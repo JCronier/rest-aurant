@@ -12,6 +12,9 @@ const Item = ({ item }) => {
       <div>category: {item.category}</div>
       <div>options: {JSON.stringify(item.options)}</div>
       <div>tags: {JSON.stringify(item.tags)}</div>
+      <button>UPDATE</button>
+      <button>DELETE</button>
+      <br />
       <br />
     </div>
   );

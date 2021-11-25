@@ -10,3 +10,13 @@ export const getItems = () => async (dispatch) => {
     console.log(error.message);
   }
 };
+
+export const createItem = (item) => async (dispatch) => {
+  try {
+    const { data } = await api.createItem(item);
+
+    dispatch({ type: 'ITEMS/CREATE', payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};

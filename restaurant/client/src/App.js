@@ -11,6 +11,7 @@ import { getTables } from './actions/tables';
 import ItemList from './components/ItemList';
 import OrderList from './components/OrderList';
 import TableList from './components/TableList';
+import ItemForm from './components/ItemForm';
 
 const App = () => {
 
@@ -40,6 +41,9 @@ const App = () => {
       <div>
         <h1>Tables</h1>
         <TableList />
+      </div>
+      <div>
+        <ItemForm />
       </div>
     </div>
   );
