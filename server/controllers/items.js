@@ -16,10 +16,10 @@ export const createItem = async (req, res) => {
   const newItem = new Item({ name, price, description, category, options, tags })
 
   try {
-      await newItem.save();
+    await newItem.save();
 
-      res.status(201).json(newItem);
+    res.status(201).json(newItem);
   } catch (error) {
-      res.status(409).json({ message: error.message });
+    res.status(409).json({ message: error.message });
   };
 };
