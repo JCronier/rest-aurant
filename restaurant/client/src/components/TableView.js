@@ -18,7 +18,7 @@ const TableView = () => {
       <label>
         Table ID
       </label>
-      <input type="text" id="tableId" name="tableId"/>
+      <input type="text" id="tableId" name="tableId" />
       <button type="submit">Create</button>
     </form>
   );
