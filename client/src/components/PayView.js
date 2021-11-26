@@ -22,6 +22,8 @@ const PayView = () => {
   const { state } = useContext(orderContext);
   // const {  } = useContext(viewContext);
 
+  const [tipState, setTipState] = useState(0);
+
 
   //database pull
   const items = useSelector((state) => state.items);
@@ -45,6 +47,18 @@ const PayView = () => {
     return Math.round(result * 100);
   }
 
+  const tips = (mySubtotal) => {
+    const tipArray = [0.15, 0.18, 0.20]
+
+    const tipAmounts = tipArray.map((tipPercent) => {
+      return Math.round((mySubtotal) * tipPercent)/100
+    })
+    // console.log(tipAmounts, mySubtotal)
+    return tipAmounts
+  }
+
+  const total = Math.round(subtotal(state.order) + tipState)
+
   return (
     <div>
       <h1>Pay your bill</h1>
@@ -52,8 +66,17 @@ const PayView = () => {
       Your order:
         {cart}
       Your subtotal:
-      {subtotal(state.order)}
-        <CheckoutForm amount={subtotal(state.order)}/>
+      {` $${parseFloat(subtotal(state.order)) / 100} CAD`}
+      <div>
+        Tip Amount: 
+        <button onClick={() => setTipState(tips(subtotal(state.order))[0]*100)} >15%: {tips(subtotal(state.order))[0]}</button>  
+        <button  onClick={() => setTipState(tips(subtotal(state.order))[1]*100)} >18%: {tips(subtotal(state.order))[1]}</button>  
+        <button  onClick={() => setTipState(tips(subtotal(state.order))[2]*100)}>20%: {tips(subtotal(state.order))[2]}</button> 
+        Custom Amount: <input type="number" onChange={(event) =>  setTipState(((event.target.value/100) * subtotal(state.order)))}></input>
+        {/* console.log(event.target.value) */}
+      </div>
+      Your Total: ${total /100} CAD
+        <CheckoutForm amount={total}/>
     </div>
   );
 };
