@@ -12,6 +12,7 @@ import ItemList from './components/ItemList';
 import OrderList from './components/OrderList';
 import TableList from './components/TableList';
 import ItemForm from './components/ItemForm';
+import TableView from './components/TableView';
 
 const App = () => {
 
@@ -46,6 +47,9 @@ const App = () => {
       </div>
       <div>
         <ItemForm currentItemId={currentItemId} setCurrentItemId={setCurrentItemId} />
+      </div>
+      <div>
+        <TableView />
       </div>
     </div>
   );
