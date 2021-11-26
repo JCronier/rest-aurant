@@ -17,3 +17,5 @@ export const fetchOrders = () => axios.get(orders_url);
 const tables_url = `http://localhost:3001/tables`;
 
 export const fetchTables = () => axios.get(tables_url);
+export const createTable = (newTable) => axios.post(tables_url, newTable);
+export const updateTableStatus = (id, status) => axios.patch(tables_url + `/${id}`, { status })
