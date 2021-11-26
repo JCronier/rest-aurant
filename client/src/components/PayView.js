@@ -28,6 +28,7 @@ const PayView = () => {
   //database pull
   const items = useSelector((state) => state.items);
 
+  //maps the cart 
   const cart = state.order.map((cartItem) => {
     const itemObj = items.find((item) => item._id ===  cartItem.item_id)
 
@@ -72,7 +73,7 @@ const PayView = () => {
         <button onClick={() => setTipState(tips(subtotal(state.order))[0]*100)} >15%: {tips(subtotal(state.order))[0]}</button>  
         <button  onClick={() => setTipState(tips(subtotal(state.order))[1]*100)} >18%: {tips(subtotal(state.order))[1]}</button>  
         <button  onClick={() => setTipState(tips(subtotal(state.order))[2]*100)}>20%: {tips(subtotal(state.order))[2]}</button> 
-        Custom Amount: <input type="number" onChange={(event) =>  setTipState(((event.target.value/100) * subtotal(state.order)))}></input>
+        Custom Amount: %<input type="number" min="0" max="100" pattern="^[1-9]\d*$" onChange={(event) =>  event.target.value < 0 ? console.log('invalid number') : setTipState(((event.target.value/100) * subtotal(state.order)))}></input>
         {/* console.log(event.target.value) */}
       </div>
       Your Total: ${total /100} CAD
