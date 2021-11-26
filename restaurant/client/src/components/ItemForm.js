@@ -5,6 +5,9 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createItem, updateItem } from '../actions/items';
 
+// React-file-base64
+import FileBase from 'react-file-base64';
+
 const ItemForm = ({ currentItemId, setCurrentItemId }) => {
 
   // State to keep track of data when
@@ -15,7 +18,8 @@ const ItemForm = ({ currentItemId, setCurrentItemId }) => {
     description: '',
     category: '',
     options: '',
-    tags: ''
+    tags: '',
+    image_url: ''
   });
 
   // Grab Item from store with _id eqaul to value of currentItemId.
@@ -42,7 +46,8 @@ const ItemForm = ({ currentItemId, setCurrentItemId }) => {
       description: '',
       category: '',
       options: '',
-      tags: ''
+      tags: '',
+      image_url: ''
     });
   };
 
@@ -105,7 +110,7 @@ const ItemForm = ({ currentItemId, setCurrentItemId }) => {
       </div>
 
       <div>
-        {/* INPUT FOR ITEM IMAGE  */}
+        <FileBase type="file" multiple={false} onDone={({ base64 }) => setItemData({ ...itemData, image_url: base64 })} />
       </div>
 
       <div>

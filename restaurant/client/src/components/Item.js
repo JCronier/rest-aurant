@@ -18,6 +18,11 @@ const Item = ({ item, setCurrentItemId }) => {
       <div>category: {item.category}</div>
       <div>options: {JSON.stringify(item.options)}</div>
       <div>tags: {JSON.stringify(item.tags)}</div>
+      <div>image_url: NOT INCLUDED BECAUSE IT'S SO LONG (item.image_url)</div>
+      <div>
+        <div>item_url image (NOT PART OF SCHEMA):</div>
+        <img src={item.image_url} alt="image_url" height="100" width="100" />
+      </div>
       <button type="button" onClick={() => setCurrentItemId(item._id)}>UPDATE</button>
       <button type="button" onClick={() => dispatch(deleteItem(item._id))}>DELETE</button>
       <br />

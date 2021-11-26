@@ -12,9 +12,9 @@ export const getItems = async (req, res) => {
 };
 
 export const createItem = async (req, res) => {
-  const { name, price, description, category, options, tags } = req.body;
+  const { name, price, description, category, options, tags, image_url } = req.body;
 
-  const newItem = new Item({ name, price, description, category, options, tags });
+  const newItem = new Item({ name, price, description, category, options, tags, image_url });
 
   try {
     await newItem.save();
@@ -27,11 +27,11 @@ export const createItem = async (req, res) => {
 
 export const updateItem = async (req, res) => {
   const { id: _id } = req.params;
-  const { name, price, description, category, options, tags } = req.body;
+  const { name, price, description, category, options, tags, image_url } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send(`No item with id: ${_id}`);
 
-  const updatedItem = { _id, name, price, description, category, options, tags };
+  const updatedItem = { _id, name, price, description, category, options, tags, image_url };
 
   await Item.findByIdAndUpdate(_id, updatedItem, { new: true });
 
