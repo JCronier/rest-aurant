@@ -3,14 +3,18 @@ import { createTable } from "../actions/tables";
 import { useDispatch } from "react-redux";
 
 const TableView = () => {
+  const [ error, setError] = useState(false);
   const dispatch = useDispatch();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const tableId = event.target.tableId.value
 
-    dispatch(createTable(tableId));
+    dispatch(createTable(tableId))
+      .then((e) => {
+        e? setError(true) : setError(false);
+      });
   }
 
   return (
@@ -19,6 +23,7 @@ const TableView = () => {
         Table ID
       </label>
       <input type="text" id="tableId" name="tableId"/>
+      {error && <p style={{ color: 'red' }} >That table already exists.</p>}
       <button type="submit">Create</button>
     </form>
   );

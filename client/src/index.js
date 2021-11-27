@@ -1,6 +1,8 @@
 // React
 import React from 'react';
 import ReactDOM from 'react-dom';
+// Cookies hook
+import { CookiesProvider } from 'react-cookie';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -21,7 +23,6 @@ import { loadStripe } from '@stripe/stripe-js';
 //stripe public key
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
-
 const options = {
   // passing the client secret obtained from the server
   clientSecret: `${process.env.REACT_APP_STRIPE_SECRET}` 
@@ -32,13 +33,14 @@ const options = {
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
 ReactDOM.render(
-  
-  <Provider store={store}>
-    <ViewProvider>
-      <Elements stripe={stripePromise}>
-        <App />
-      </Elements>
-    </ViewProvider>
-  </Provider>,
+  <CookiesProvider>
+    <Provider store={store}>
+      <ViewProvider>
+        <Elements stripe={stripePromise}>
+          <App />
+        </Elements>
+      </ViewProvider>
+    </Provider>
+  </CookiesProvider>,
   document.getElementById('root')
 );

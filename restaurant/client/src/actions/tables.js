@@ -26,7 +26,7 @@ export const createTable = (id) => async (dispatch) => {
 
     dispatch({ type: 'TABLES/CREATE', payload: data });
   } catch (error) {
-    console.log(error.message);
+    return error;
   }
 };
 
@@ -34,6 +34,7 @@ export const updateStatus = async (id, status) => {
   try {
     const message = await api.updateTableStatus(id, status);
     console.log(message);
+    return message;
   } catch (error) {
     console.log(error.message);
   }
