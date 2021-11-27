@@ -11,7 +11,10 @@ const receiptSchema = mongoose.Schema({
   items: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Item' }],
   options: [Object],
   confirmation_code: String,
-  order_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Order'},
+  order_id: {
+    type: Number, 
+    field: "id",
+    ref: 'Order'},
   date_created: { type: Date, default: Date.now }
 }, { minimize: false });
 

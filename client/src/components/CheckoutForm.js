@@ -1,14 +1,20 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 
-//Table status API patch request
+//Table status API patch request, receipt creation API request
 import { updateTableStatus } from "../api";
+import { createReceipt } from '../actions/receipts'
+
+//Dispatch and selector
+import { useSelector, useDispatch } from "react-redux";
+
 //Order context
 import { orderContext } from "../providers/OrderProvider";
 
 //Stripe API
 import {CardElement, CardNumberElement, PaymentElement} from '@stripe/react-stripe-js';
 import { useStripe, useElements } from "@stripe/react-stripe-js";
+
 
 
 
@@ -21,6 +27,11 @@ const CheckoutForm = (props) => {
   const stripe = useStripe();
   const elements = useElements();
 
+  const orders = useSelector((state) => state.orders);
+
+  // Allows us to dispatch any action to the store by
+  // adding an action as an argument.
+  const dispatch = useDispatch();
 
   //Local state for handling the payment secret
   const [secret, setSecret] = useState(null);
@@ -60,8 +71,22 @@ const CheckoutForm = (props) => {
       //uses the built-in API function to send a patch request to our table
       updateTableStatus(state.table, "PAID")
       console.log(`table ${state.table} changed to PAID`)
+      receipt(payload.paymentIntent.amount, payload.paymentIntent.id)
     }
   };
+
+  const receipt = (amountPaid, confirmationCode) => {
+    const amount_paid = parseInt(amountPaid);
+    const table = state.table;
+    const items = state.order.map((item) => item.item_id);
+    const options = state.order;
+    const confirmation_code = confirmationCode;
+    const order_id = orders.length
+
+    const receiptData = {amount_paid, table, items, options, confirmation_code, order_id}
+    console.log('sending...', receiptData)
+    dispatch(createReceipt(receiptData))
+  }
 
   //Request to the server for payment secret
   useEffect(() => {
