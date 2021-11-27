@@ -14,6 +14,7 @@ import { orderContext } from "../providers/OrderProvider";
 //Stripe API
 import {CardElement, CardNumberElement, PaymentElement} from '@stripe/react-stripe-js';
 import { useStripe, useElements } from "@stripe/react-stripe-js";
+import Receipt from "./Receipt";
 
 
 
@@ -106,13 +107,19 @@ const CheckoutForm = (props) => {
   // const options = 'bluh'
   
   return (
+    <div>
     <form id="payment-form" onSubmit={handleSubmit}>
-      <CardElement id="card-element" onChange={handleChange}/>
-      <button disabled={processing || disabled || succeeded} id="submit">
-        <span id="button-text">
-          {processing ? <div className="spinner" id="spinner"></div> : "Pay"}
-        </span>
-      </button>
+      {!succeeded && (
+        <div>
+          <CardElement id="card-element" onChange={handleChange}/>
+          <button disabled={processing || disabled || succeeded} id="submit">
+            <span id="button-text">
+              {processing ? <div className="spinner" id="spinner"></div> : "Pay"}
+            </span>
+          </button>
+        </div>
+      )}
+      
       {error && (
         <div className="card-error" role="alert">{error}</div>
       )}
@@ -120,6 +127,10 @@ const CheckoutForm = (props) => {
         <p className={succeeded ? "result-message" : "result-message hidden"}>Payment succeeded!</p>
       )}
     </form>
+      {succeeded && (
+        <Receipt receiptOrderId={orders.length}/>
+      )}
+    </div>
     
   )
 

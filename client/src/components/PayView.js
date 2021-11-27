@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 //Components for the Stripe API
 import CheckoutForm from "./CheckoutForm";
-import Receipt from "./Receipt";
+// import Receipt from "./Receipt";
 
 
 
@@ -78,8 +78,6 @@ const PayView = () => {
       </div>
       Your Total: ${total /100} CAD
         <CheckoutForm amount={total}/>
-
-      <Receipt />
     </div>
   );
 };
