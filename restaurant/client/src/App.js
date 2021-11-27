@@ -12,7 +12,8 @@ import ItemList from './components/ItemList';
 import OrderList from './components/OrderList';
 import TableList from './components/TableList';
 import ItemForm from './components/ItemForm';
-import TableView from './components/TableView';
+import TableForm from './components/TableForm';
+import Dashboard from './components/Dashboard';
 
 const App = () => {
 
@@ -34,6 +35,9 @@ const App = () => {
         <h1>Admin Dashboard</h1>
       </div>
       <div>
+        <Dashboard />
+      </div>
+      {/* <div>
         <h1>Items</h1>
         <ItemList setCurrentItemId={setCurrentItemId} />
       </div>
@@ -49,8 +53,8 @@ const App = () => {
         <ItemForm currentItemId={currentItemId} setCurrentItemId={setCurrentItemId} />
       </div>
       <div>
-        <TableView />
-      </div>
+        <TableForm />
+      </div> */}
     </div>
   );
 };

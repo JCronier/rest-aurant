@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { createTable } from "../actions/tables";
 import { useDispatch } from "react-redux";
 
-const TableView = () => {
+const TableForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
@@ -24,4 +24,4 @@ const TableView = () => {
   );
 }
 
-export default TableView;
+export default TableForm;
