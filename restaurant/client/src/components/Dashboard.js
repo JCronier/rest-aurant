@@ -1,5 +1,5 @@
 // React
-import React from 'react';
+import React, { useReducer } from 'react';
 
 // Redux
 import { useSelector } from 'react-redux';
@@ -10,13 +10,22 @@ import DashboardRow from './DashboardRow';
 const Dashboard = () => {
 
   const items = useSelector((state) => state.items);
+  const orders = useSelector((state) => state.orders);
   const tables = useSelector((state) => state.tables);
 
-  const getItems = (_id_table) => {
+  const getOrderedItemsAndOptions = (tableId) => {
+    const ordersForTableId = orders.filter((order) => order.table === tableId);
 
+    let orderedItemsAndOptionsForTableId = [];
+
+    ordersForTableId.map((orderForTableId) => {
+      orderedItemsAndOptionsForTableId = [...orderedItemsAndOptionsForTableId, ...orderForTableId.options];
+    });
+
+    return orderedItemsAndOptionsForTableId;
   };
 
-  const dashboardRows = tables.map((table) => <DashboardRow table={table} />)
+  const dashboardRows = tables.map((table) => <DashboardRow key={table.id} table={table} orderedItemsAndOptions={getOrderedItemsAndOptions(table.id)} />)
 
   return (
     <table>
