@@ -1,7 +1,10 @@
 import mongoose from 'mongoose';
 
 const tableSchema = mongoose.Schema({
-  id: Number,
+  id: {
+    type: Number,
+    unique: true
+  },
   qr_code: String,
   status: {
     type: String,

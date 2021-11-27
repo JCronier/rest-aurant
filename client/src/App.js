@@ -13,8 +13,6 @@ import CartView from './components/CartView';
 import OrderedView from './components/OrderedView';
 import PayView from './components/PayView';
 
-import TableView from './components/TableView'
-
 // Context API
 import OrderProvider from "./providers/OrderProvider"
 import { useContext } from 'react';
@@ -28,7 +26,6 @@ const ORDERED = 'ORDERED';
 const PAYBILL = 'PAYBILL';
 
 const App = () => {
-
   const { view } = useContext(viewContext);
 
   // Allows us to dispatch any action to the store by
@@ -67,7 +64,6 @@ const App = () => {
           {view[view.length - 1] === PAYBILL && <PayView />}
         </OrderProvider>
       </div>
-      <TableView />
     </div>
   );
 

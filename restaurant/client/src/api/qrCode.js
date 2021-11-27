@@ -14,7 +14,7 @@ const qrCode = async (id) => {
   try {
     const { data } = await axios.post(qrUrl, qrObject);
     return data.imageUrl;
-  } catch (e) {
+  } catch(e) {
     console.log(e.message);
   }
 };

@@ -16,7 +16,7 @@ const ORDERED = 'ORDERED';
 
 const CartView = () => {
 
-  const { state, resetOrder } = useContext(orderContext);
+  const { state, resetOrder, setOrderId } = useContext(orderContext);
   const { changeView } = useContext(viewContext);
 
   // Retrieve all records of the Item model
@@ -72,7 +72,7 @@ const CartView = () => {
     dispatch(createOrder(orderData));
 
     // resetOrder();
-
+    setOrderId(id);
     changeView(ORDERED);
   };
 
