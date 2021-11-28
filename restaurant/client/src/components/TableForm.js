@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { createTable } from "../actions/tables";
 import { useDispatch } from "react-redux";
 
-const TableView = () => {
+const TableForm = () => {
   const [error, setError] = useState(false);
   const dispatch = useDispatch();
 
