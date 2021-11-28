@@ -63,9 +63,24 @@ const StatusTableRow = ({ table, orderedItemsAndOptions }) => {
     };
 
     return [
-      <a key={`${table._id}_VACANT`} href="#" onClick={() => updateTableStatus("VACANT")}>VACANT</a>,
-      <a key={`${table._id}_OCCUPIED`} href="#" onClick={() => updateTableStatus("OCCUPIED")}>OCCUPIED</a>,
-      <a key={`${table._id}_PAID`} href="#" onClick={() => updateTableStatus("PAID")}>PAID</a>,
+      <a href="#" onClick={(event) => {
+        event.preventDefault();
+        updateTableStatus("VACANT")
+      }}>
+        VACANT
+      </a>,
+      <a href="#" onClick={(event) => {
+        event.preventDefault();
+        updateTableStatus("OCCUPIED")
+      }}>
+        OCCUPIED
+      </a>,
+      <a href="#" onClick={(event) => {
+        event.preventDefault();
+        updateTableStatus("PAID")
+      }}>
+        PAID
+      </a>
     ];
   };
 

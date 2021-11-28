@@ -7,7 +7,10 @@ import { useSelector } from 'react-redux';
 // Components
 import Item from './Item';
 
-const ItemList = ({ setCurrentItemId }) => {
+// View States
+const DASHBOARD = "DASHBOARD";
+
+const ItemList = ({ setCurrentItemId, setViewState }) => {
 
   // Retrieve all records of the Item model
   // that is in the items store.
@@ -22,6 +25,11 @@ const ItemList = ({ setCurrentItemId }) => {
 
   return (
     <div>
+      <div>
+        <button type="button" onClick={() => setViewState(DASHBOARD)} style={{ height: 50, width: 200 }}>BACK TO DASHBOARD</button>
+      </div>
+      <br />
+      <br />
       <div>
         {!items.length ? "Loading..." : generateItems()}
       </div>

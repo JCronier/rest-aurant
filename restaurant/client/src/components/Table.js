@@ -1,7 +1,13 @@
 // React
 import React from 'react';
 
+// Redux
+import { useDispatch } from 'react-redux';
+import { deleteTable } from '../actions/tables';
+
 const Table = ({ table }) => {
+
+  const dispatch = useDispatch();
 
   return (
     <div>
@@ -17,6 +23,8 @@ const Table = ({ table }) => {
         </div>
       </div>
       <div>status: {table.status}</div>
+      <button type="button" onClick={() => dispatch(deleteTable(table._id))}>DELETE</button>
+      <br />
       <br />
     </div>
   );

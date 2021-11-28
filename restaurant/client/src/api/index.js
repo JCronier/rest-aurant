@@ -19,3 +19,4 @@ const tables_url = `http://localhost:3001/tables`;
 export const fetchTables = () => axios.get(tables_url);
 export const createTable = (newTable) => axios.post(tables_url, newTable);
 export const updateTable = (id, updatedTable) => axios.patch(`${tables_url}/${id}`, updatedTable);
+export const deleteTable = (_id) => axios.delete(`${tables_url}/${_id}`);

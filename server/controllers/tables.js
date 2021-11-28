@@ -37,3 +37,13 @@ export const updateTable = async (req, res) => {
 
   res.json(tableWithUpdatedStatus);
 };
+
+export const deleteTable = async (req, res) => {
+  const { id: _id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send(`No table with id: ${_id}`);
+
+  await Table.findByIdAndRemove(_id);
+
+  res.json({ message: 'Table deleted successfully' });
+};

@@ -18,6 +18,7 @@ import StatusTable from './components/StatusTable';
 // View States
 const DASHBOARD = "DASHBOARD";
 const ITEM_LIST = "ITEM_LIST";
+const TABLE_LIST = "TABLE_LIST";
 
 const App = () => {
 
@@ -39,16 +40,22 @@ const App = () => {
       {
         viewState === DASHBOARD && (
           <div>
-            <div>
-              <h1>I'THAI'LY - ADMIN DASHBOARD</h1>
-              <h2>[STATUS TABLE]</h2>
-              <StatusTable />
-            </div>
+            <h1>I'THAI'LY - ADMIN DASHBOARD</h1>
             <div>
               <h2>[MENU]</h2>
               <div>
                 <button type="button" onClick={() => setViewState(ITEM_LIST)} style={{ height: 50, width: 200 }}>MANAGE ITEMS</button>
               </div>
+            </div>
+            <div>
+              <h2>[TABLES]</h2>
+              <div>
+                <button type="button" onClick={() => setViewState(TABLE_LIST)} style={{ height: 50, width: 200 }}>MANAGE TABLES</button>
+              </div>
+            </div>
+            <div>
+              <h2>[STATUS TABLE]</h2>
+              <StatusTable />
             </div>
           </div>
         )
@@ -57,8 +64,17 @@ const App = () => {
         viewState === ITEM_LIST && (
           <div>
             <h1>I'THAI'LY - MANAGE ITEMS</h1>
-            <ItemList setCurrentItemId={setCurrentItemId} />
+            <ItemList setCurrentItemId={setCurrentItemId} setViewState={setViewState} />
             <ItemForm currentItemId={currentItemId} setCurrentItemId={setCurrentItemId} />
+          </div>
+        )
+      }
+      {
+        viewState === TABLE_LIST && (
+          <div>
+            <h1>I'THAI'LY - MANAGE TABLES</h1>
+            <TableList setViewState={setViewState} />
+            <TableForm />
           </div>
         )
       }

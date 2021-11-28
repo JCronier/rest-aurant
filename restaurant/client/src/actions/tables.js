@@ -39,3 +39,13 @@ export const updateTable = (id, updatedTable) => async (dispatch) => {
     console.log(error.message);
   }
 };
+
+export const deleteTable = (_id) => async (dispatch) => {
+  try {
+    await api.deleteTable(_id);
+
+    dispatch({ type: 'TABLES/DELETE', payload: _id });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
