@@ -1,13 +1,28 @@
 // React
-import React from 'react';
+import React, { useState } from 'react';
 
 // Redux
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { updateStatus } from '../actions/tables';
+
+// Styles
+import './Test.css';
 
 const DashboardRow = ({ table, orderedItemsAndOptions }) => {
 
   const items = useSelector((state) => state.items);
   const orders = useSelector((state) => state.orders);
+  const tables = useSelector((state) => state.tables);
+
+  const [tableData, setTableData] = useState({
+    _id: table._id,
+    id: table.id,
+    qr_code: table.qr_code,
+    status: table.status
+  });
+
+  const dispatch = useDispatch();
 
   const renderItemsAndOptions = () => {
     return orderedItemsAndOptions.map((orderedItemAndOptions) => {
@@ -22,7 +37,7 @@ const DashboardRow = ({ table, orderedItemsAndOptions }) => {
   };
 
   const getTableTotal = () => {
-    const ordersForTable = orders.filter((order) => order.table === table.id);
+    const ordersForTable = orders.filter((order) => order.table === table.id && order.isPaid === false);
 
     let itemsOfOrdersForTable = [];
 
@@ -41,14 +56,34 @@ const DashboardRow = ({ table, orderedItemsAndOptions }) => {
     return totalOfItemsOfOrdersForTable;
   };
 
+  const listTableStatuses = () => {
+    const updateTable = (TABLE_STATUS) => {
+      setTableData({ ...tableData, status: TABLE_STATUS });
+      dispatch(updateStatus(tableData.id, { ...tableData, status: TABLE_STATUS }));
+    };
+
+    return [
+      <a key={`${table._id}_VACANT`} href="#" onClick={() => updateTable("VACANT")}>VACANT</a>,
+      <a key={`${table._id}_OCCUPIED`} href="#" onClick={() => updateTable("OCCUPIED")}>OCCUPIED</a>,
+      <a key={`${table._id}_PAID`} href="#" onClick={() => updateTable("PAID")}>PAID</a>,
+    ];
+  };
+
   return (
     <tr>
-      <td>{table.id}</td>
-      <td>{table.status}</td>
-      <td>{items.length > 0 ? renderItemsAndOptions() : 'Loading...'}</td>
-      <td>{items.length > 0 && orders.length > 0 ? getTableTotal() : 'Loading...'}</td>
-      <td>EDIT STATUS</td>
-    </tr>
+      <td style={{ border: '1px solid black' }}>{items.length > 0 && orders.length > 0 && tables.length > 0 ? table.id : 'Loading...'}</td>
+      <td style={{ border: '1px solid black' }}>{items.length > 0 && orders.length > 0 && tables.length > 0 ? table.status : 'Loading...'}</td>
+      <td style={{ border: '1px solid black' }}>{items.length > 0 && orders.length > 0 && tables.length > 0 ? renderItemsAndOptions() : 'Loading...'}</td>
+      <td style={{ border: '1px solid black' }}>{items.length > 0 && orders.length > 0 && tables.length > 0 ? getTableTotal() : 'Loading...'}</td>
+      <td style={{ border: '1px solid black', 'backgroundColor': '#04AA6D' }}>
+        <div className={items.length > 0 && orders.length > 0 && tables.length > 0 ? 'dropdown' : ''}>
+          <button className="dropbtn">{items.length > 0 && orders.length > 0 && tables.length > 0 ? 'EDIT STATUS' : 'Loading...'}</button>
+          <div className="dropdown-content">
+            {items.length > 0 && orders.length > 0 && tables.length > 0 ? listTableStatuses() : 'Loading...'}
+          </div>
+        </div>
+      </td>
+    </tr >
   );
 };
 

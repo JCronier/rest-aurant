@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Table from "../models/table.js";
 
 export const getTables = async (req, res) => {
@@ -26,12 +27,13 @@ export const createTable = async (req, res) => {
 
 export const updateTableStatus = async (req, res) => {
   const { id } = req.params;
-  const { status } = req.body;
+  const { _id, qr_code, status } = req.body;
 
-  try {
-    await Table.findOneAndUpdate({id}, {status});
-    res.status(204).send("Updated successfully");
-  } catch (error) {
-    res.status(409).json({ message: error.message });
-  }
-}
+  if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send(`No table with id: ${_id}`);
+
+  const tableWithUpdatedStatus = { _id, id: Number(id), qr_code, status };
+
+  await Table.findOneAndUpdate({ id }, tableWithUpdatedStatus, { new: true });
+
+  res.json(tableWithUpdatedStatus);
+};

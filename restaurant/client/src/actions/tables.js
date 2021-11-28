@@ -30,10 +30,11 @@ export const createTable = (id) => async (dispatch) => {
   }
 };
 
-export const updateStatus = async (id, status) => {
+export const updateStatus = (id, tableWithUpdatedStatus) => async (dispatch) => {
   try {
-    const message = await api.updateTableStatus(id, status);
-    console.log(message);
+    const { data } = await api.updateTableStatus(id, tableWithUpdatedStatus);
+
+    dispatch({ type: 'TABLES/UPDATE', payload: data });
   } catch (error) {
     console.log(error.message);
   }
