@@ -5,9 +5,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 // Components 
-import DashboardRow from './DashboardRow';
+import StatusTableRow from './StatusTableRow';
 
-const Dashboard = () => {
+const StatusTable = () => {
 
   const orders = useSelector((state) => state.orders);
   const tables = useSelector((state) => state.tables);
@@ -24,9 +24,9 @@ const Dashboard = () => {
     return orderedItemsAndOptionsForTableId;
   };
 
-  const generateDashboardRows = () => (
+  const generateStatusTableRows = () => (
     tables.map((table) => (
-      <DashboardRow key={table.id} table={table} orderedItemsAndOptions={getOrderedItemsAndOptions(table.id)} />
+      <StatusTableRow key={table.id} table={table} orderedItemsAndOptions={getOrderedItemsAndOptions(table.id)} />
     ))
   );
 
@@ -42,10 +42,10 @@ const Dashboard = () => {
         </tr>
       </thead>
       <tbody>
-        {orders.length > 0 && tables.length > 0 ? generateDashboardRows() : <tr><td>Loading...</td></tr>}
+        {orders.length > 0 && tables.length > 0 ? generateStatusTableRows() : <tr><td>Loading...</td></tr>}
       </tbody>
     </table>
   );
 };
 
-export default Dashboard;
+export default StatusTable;

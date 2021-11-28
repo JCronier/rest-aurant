@@ -9,7 +9,7 @@ import { updateStatus } from '../actions/tables';
 // Styles
 import './Test.css';
 
-const DashboardRow = ({ table, orderedItemsAndOptions }) => {
+const StatusTableRow = ({ table, orderedItemsAndOptions }) => {
 
   const items = useSelector((state) => state.items);
   const orders = useSelector((state) => state.orders);
@@ -87,4 +87,4 @@ const DashboardRow = ({ table, orderedItemsAndOptions }) => {
   );
 };
 
-export default DashboardRow;
+export default StatusTableRow;

@@ -13,7 +13,7 @@ import OrderList from './components/OrderList';
 import TableList from './components/TableList';
 import ItemForm from './components/ItemForm';
 import TableForm from './components/TableForm';
-import Dashboard from './components/Dashboard';
+import StatusTable from './components/StatusTable';
 
 const App = () => {
 
@@ -35,7 +35,7 @@ const App = () => {
         <h1>Admin Dashboard</h1>
       </div>
       <div>
-        <Dashboard />
+        <StatusTable />
       </div>
       {/* <div>
         <h1>Items</h1>
