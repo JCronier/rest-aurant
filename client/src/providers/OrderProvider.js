@@ -76,7 +76,16 @@ export default function OrderProvider(props) {
     setCookies('customer', {...cookies.customer, orderId})
   };
 
-  const data = { state, setItem, addItemToOrder, resetItem, resetOrder, initCookie, setOrderId };
+  const getOrderId = () => {
+    return cookies.customer.orderId;
+  };
+
+  const removeItemFromOrder = (itemIndex) => {
+    setState((prev) => ({ ...prev, order: state.order.filter((item, index) => index !== itemIndex)}));
+    setCookies('customer', ({ ...cookies.customer, order: cookies.customer.order.filter((item, index) => index !== itemIndex)}));
+  };
+
+  const data = { state, setItem, addItemToOrder, resetItem, resetOrder, initCookie, setOrderId, getOrderId, removeItemFromOrder };
 
   return (
     <orderContext.Provider value={data}>
