@@ -27,11 +27,11 @@ const Menu = () => {
   const params = new URLSearchParams(window.location.search);
   const table = params.get('table');
 
-  const { state, setItem, setTable } = useContext(orderContext);
+  const { state, setItem, initCookie } = useContext(orderContext);
   const { changeView } = useContext(viewContext);
 
   useEffect(() => {
-    setTable(parseInt(table));
+    initCookie(parseInt(table));
     updateStatus(table, "OCCUPIED");
   }, []);
 

@@ -14,27 +14,6 @@ export const getTables = () => async (dispatch) => {
   }
 };
 
-
-export const createTable = async (id) => {
-  const newTable = {
-    id,
-    qrCodeUrl: ""
-  };
-
-  try {
-    newTable.qrCodeUrl += await qrCode(id);
-    const { data } = await api.createTable(newTable);
-
-    console.log(data);
-
-    return await data;
-
-    // dispatch({ type: 'ORDERS/CREATE', payload: data });
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
 export const updateStatus = async (id, status) => {
   try {
     const message = await api.updateTableStatus(id, status);

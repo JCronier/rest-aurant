@@ -26,7 +26,7 @@ export const createTable = (id) => async (dispatch) => {
 
     dispatch({ type: 'TABLES/CREATE', payload: data });
   } catch (error) {
-    console.log(error.message);
+    return error;
   }
 };
 

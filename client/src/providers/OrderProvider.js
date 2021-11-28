@@ -1,4 +1,5 @@
 import { createContext, useState } from 'react';
+import { useCookies } from 'react-cookie';
 
 export const orderContext = createContext();
 
@@ -26,6 +27,18 @@ export default function OrderProvider(props) {
     table: null
   });
 
+  const [ cookies, setCookies ] = useCookies(['customer']);
+
+  const initCookie = (table) => {
+    if (cookies.customer) {
+      setCookies('customer', {...cookies.customer, table}, { path: '/' });
+      setState({order: [...cookies.customer.order], table: cookies.customer.table});
+      return;
+    };
+    setState({ ...state, table });
+    setCookies('customer', {orderId: null, order: [], table}, { path: '/' });
+  };
+
   // Helper function for specifically modifying:
   //   state.item
   const setItem = (item) => {
@@ -41,12 +54,8 @@ export default function OrderProvider(props) {
     };
 
     setState((prev) => ({ ...prev, order: [...prev.order, newItem] }));
-  };
+    setCookies('customer', { ...cookies.customer, order: [...cookies.customer.order, newItem] });
 
-  // Helper function for specifically modifying:
-  //  state.table
-  const setTable = (table) => {
-    setState({ ...state, table });
   };
 
   // Helper function for resetting state.item
@@ -63,7 +72,11 @@ export default function OrderProvider(props) {
     setState({ ...state, order: [] });
   };
 
-  const data = { state, setItem, addItemToOrder, setTable, resetItem, resetOrder };
+  const setOrderId = (orderId) => {
+    setCookies('customer', {...cookies.customer, orderId})
+  };
+
+  const data = { state, setItem, addItemToOrder, resetItem, resetOrder, initCookie, setOrderId };
 
   return (
     <orderContext.Provider value={data}>
