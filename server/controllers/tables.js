@@ -25,7 +25,7 @@ export const createTable = async (req, res) => {
   }
 };
 
-export const updateTableStatus = async (req, res) => {
+export const updateTable = async (req, res) => {
   const { id } = req.params;
   const { _id, qr_code, status } = req.body;
 

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 // Redux
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { updateStatus } from '../actions/tables';
+import { updateTable } from '../actions/tables';
 
 // Styles
 import './Test.css';
@@ -57,15 +57,15 @@ const StatusTableRow = ({ table, orderedItemsAndOptions }) => {
   };
 
   const listTableStatuses = () => {
-    const updateTable = (TABLE_STATUS) => {
+    const updateTableStatus = (TABLE_STATUS) => {
       setTableData({ ...tableData, status: TABLE_STATUS });
-      dispatch(updateStatus(tableData.id, { ...tableData, status: TABLE_STATUS }));
+      dispatch(updateTable(tableData.id, { ...tableData, status: TABLE_STATUS }));
     };
 
     return [
-      <a key={`${table._id}_VACANT`} href="#" onClick={() => updateTable("VACANT")}>VACANT</a>,
-      <a key={`${table._id}_OCCUPIED`} href="#" onClick={() => updateTable("OCCUPIED")}>OCCUPIED</a>,
-      <a key={`${table._id}_PAID`} href="#" onClick={() => updateTable("PAID")}>PAID</a>,
+      <a key={`${table._id}_VACANT`} href="#" onClick={() => updateTableStatus("VACANT")}>VACANT</a>,
+      <a key={`${table._id}_OCCUPIED`} href="#" onClick={() => updateTableStatus("OCCUPIED")}>OCCUPIED</a>,
+      <a key={`${table._id}_PAID`} href="#" onClick={() => updateTableStatus("PAID")}>PAID</a>,
     ];
   };
 
