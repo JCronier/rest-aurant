@@ -10,6 +10,8 @@ const orders_url = 'http://localhost:3001/orders';
 
 export const fetchOrders = () => axios.get(orders_url);
 export const createOrder = (newOrder) => axios.post(orders_url, newOrder);
+export const updateOrderPaymentStatus = (id, isPaid) => axios.patch(orders_url + `/status/${id}`, { isPaid })
+
 
 // Tables
 const tables_url = 'http://localhost:3001/tables';
