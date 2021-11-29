@@ -13,7 +13,7 @@ export const getTables = async (req, res) => {
 export const createTable = async (req, res) => {
   const { id, qrCodeUrl } = req.body;
 
-  const newTable = new Table({ id, qr_code: "https:" + qrCodeUrl })
+  const newTable = new Table({ id, qr_code: "https:" + qrCodeUrl });
 
   try {
     await newTable.save();
@@ -28,6 +28,10 @@ export const updateTableStatus = async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
 
+  // if (!Mongoose.Types.ObjectId.isValid(_id)) {
+  //   return res.status(404).send('No table with that id');
+  // }
+
   try {
     await Table.findOneAndUpdate({id}, {status});
     res.status(204).send("Updated successfully");
@@ -35,3 +39,15 @@ export const updateTableStatus = async (req, res) => {
     res.status(409).json({ message: error.message });
   }
 }
+
+export const deleteTable = async (req, res) => {
+  const { id } = req.params;
+
+  // if (!Mongoose.Types.ObjectId.isValid(_id)) {
+  //   return res.status(404).send('No table with that id');
+  // }
+
+  await Table.findByIdAndRemove(id);
+
+  res.json({ message: 'Table deleted successfully' });
+};
