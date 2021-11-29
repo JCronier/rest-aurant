@@ -39,15 +39,15 @@ const StatusTable = () => {
   );
 
   return (
-    <TableContainer>
-      <Table>
+    <TableContainer sx={{ maxHeight: 560 }}>
+      <Table stickyHeader>
         <TableHead>
           <TableRow>
-            <TableCell>Table</TableCell>
-            <TableCell align="left">Status</TableCell>
-            <TableCell align="left">Items</TableCell>
-            <TableCell align="right">Balance (CAD)</TableCell>
-            <TableCell align="center">Modify Status</TableCell>
+            <TableCell>TABLE</TableCell>
+            <TableCell align="left">STATUS</TableCell>
+            <TableCell align="left">ITEMS</TableCell>
+            <TableCell align="right">BALANCE (CAD)</TableCell>
+            <TableCell align="center">MODIFY STATUS</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

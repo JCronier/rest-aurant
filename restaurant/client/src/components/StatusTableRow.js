@@ -11,8 +11,9 @@ import Button from '@mui/material/Button'
 import ButtonGroup from '@mui/material/ButtonGroup'
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
+import Chip from '@mui/material/Chip';
+
+// MUI - Icons
 
 // Table States
 const VACANT = 'VACANT';
@@ -66,7 +67,7 @@ const StatusTableRow = ({ table, orderedItemsAndOptions }) => {
       return total;
     }, 0);
 
-    return `$ ${totalOfItemsOfOrdersForTable}`;
+    return totalOfItemsOfOrdersForTable;
   };
 
   const listTableStatuses = () => {
@@ -98,11 +99,24 @@ const StatusTableRow = ({ table, orderedItemsAndOptions }) => {
   };
 
   return (
-    <TableRow key={table._id}>
+    <TableRow hover key={table._id}>
       <TableCell>{(items.length > 0 && orders.length > 0 && tables.length > 0) && table.id}</TableCell>
-      <TableCell align="left">{(items.length > 0 && orders.length > 0 && tables.length > 0) && table.status}</TableCell>
+      <TableCell align="left">
+        {
+          (items.length > 0 && orders.length > 0 && tables.length > 0 && table.status === VACANT)
+          && <Chip label={table.status} sx={{ color: 'white', bgcolor: 'dodgerblue' }} />
+        }
+        {
+          (items.length > 0 && orders.length > 0 && tables.length > 0 && table.status === OCCUPIED)
+          && <Chip label={table.status} sx={{ color: 'white', bgcolor: 'orange' }} />
+        }
+        {
+          (items.length > 0 && orders.length > 0 && tables.length > 0 && table.status === PAID)
+          && <Chip label={table.status} sx={{ color: 'white', bgcolor: 'mediumseagreen' }} />
+        }
+      </TableCell>
       <TableCell align="left">{(items.length > 0 && orders.length > 0 && tables.length > 0) && renderItemsAndOptions()}</TableCell>
-      <TableCell align="right">{(items.length > 0 && orders.length > 0 && tables.length > 0) && getTableTotal()}</TableCell>
+      <TableCell align="right">$ {(items.length > 0 && orders.length > 0 && tables.length > 0) && getTableTotal()}</TableCell>
       <TableCell align="center">
         <ButtonGroup>
           {listTableStatuses()}

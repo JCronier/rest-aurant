@@ -12,11 +12,8 @@ const DASHBOARD = "DASHBOARD";
 
 const ItemList = ({ setCurrentItemId, setViewState }) => {
 
-  // Retrieve all records of the Item model
-  // that is in the items store.
   const items = useSelector((state) => state.items);
 
-  // Generate array of Item components.
   const generateItems = () => (
     items.map((item) => (
       <Item key={item._id} item={item} setCurrentItemId={setCurrentItemId} />

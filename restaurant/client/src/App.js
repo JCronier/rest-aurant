@@ -20,6 +20,7 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
+import Container from '@mui/material/Container';
 
 // MUI - Icons
 import TableRestaurantIcon from '@mui/icons-material/TableRestaurant';
@@ -44,65 +45,47 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <Paper variant="outlined">
+    <Container>
       {
         viewState === DASHBOARD && (
-          <div>
+          <Container>
             <br />
-            <br />
-            <Typography variant="h3" align="center">I'THAI'LY - Admin Dashboard</Typography>
-            <br />
+            <Typography variant="h4" align="center">I'THAI'LY - Admin Dashboard</Typography>
             <br />
             <Stack spacing={2}>
               <Button variant="contained" size="medium" startIcon={<FastfoodIcon />} onClick={() => setViewState(ITEM_LIST)}>Manage Items</Button>
               <Button variant="contained" size="medium" startIcon={<TableRestaurantIcon />} onClick={() => setViewState(TABLE_LIST)}>Manage Tables</Button>
             </Stack>
             <br />
-            <br />
-            <div>
-              <StatusTable />
-            </div>
-          </div>
+            <StatusTable />
+          </Container>
         )
       }
       {
         viewState === ITEM_LIST && (
-          <div>
-            <Typography variant="h1" align="center">I'THAI'LY - Manage Items</Typography>
+          <Container>
+            <br />
+            <Typography variant="h4" align="center">I'THAI'LY - Manage Items</Typography>
+            <br />
             <ItemList setCurrentItemId={setCurrentItemId} setViewState={setViewState} />
             <ItemForm currentItemId={currentItemId} setCurrentItemId={setCurrentItemId} />
-          </div>
+          </Container>
         )
       }
       {
         viewState === TABLE_LIST && (
-          <div>
-            <Typography variant="h1" align="center">I'THAI'LY - Manage Tables</Typography>
+          <Container>
+            <br />
+            <Typography variant="h4" align="center">I'THAI'LY - Manage Tables</Typography>
+            <br />
             <TableList setViewState={setViewState} />
             <TableForm />
-          </div>
+          </Container>
         )
       }
-      {/* <div>
-        <h1>Items</h1>
-        <ItemList setCurrentItemId={setCurrentItemId} />
-      </div> */}
-      {/* <div>
-        <h1>Orders</h1>
-        <OrderList />
-      </div> */}
-      {/* <div>
-        <h1>Tables</h1>
-        <TableList />
-      </div> */}
-      {/* <div>
-        <ItemForm currentItemId={currentItemId} setCurrentItemId={setCurrentItemId} />
-      </div> */}
-      {/* <div>
-        <TableForm />
-      </div> */}
-    </Paper >
+    </Container>
   );
+
 };
 
 export default App;
