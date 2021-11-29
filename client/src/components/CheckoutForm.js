@@ -76,6 +76,8 @@ const CheckoutForm = (props) => {
     }
   };
 
+
+
   const receipt = (amountPaid, confirmationCode) => {
     const amount_paid = parseInt(amountPaid);
     const table = state.table;

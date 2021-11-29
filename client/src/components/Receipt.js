@@ -6,9 +6,13 @@ const Receipt = (props) => {
 
   const receipts = useSelector((state) => state.receipts);
 
+  const items = useSelector((state) => state.items)
+
   const userReceipt = receipts.find((receipt) => receipt.order_id === props.receiptOrderId) 
 
   console.log('receipts is',receipts)
+
+  console.log('my receipt is: ', userReceipt)
   
   const userItems = userReceipt.items.map((item) => {
     return (
@@ -21,10 +25,10 @@ const Receipt = (props) => {
   return (
     <div>
       Total: {userReceipt.amount_paid /100} <br></br>
-      Confirmation Code: {userReceipt.confirmation_code} <br></br>
-      Items: {userItems}
+      Items: {userItems}<br></br>
+      Confirmation Code: {userReceipt.confirmation_code} 
       Date: {userReceipt.date_created}
-
+      test
     </div>
   )
 }
