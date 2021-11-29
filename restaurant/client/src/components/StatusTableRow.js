@@ -13,8 +13,6 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Chip from '@mui/material/Chip';
 
-// MUI - Icons
-
 // Table States
 const VACANT = 'VACANT';
 const OCCUPIED = 'OCCUPIED';

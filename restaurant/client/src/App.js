@@ -14,6 +14,7 @@ import TableList from './components/TableList';
 import ItemForm from './components/ItemForm';
 import TableForm from './components/TableForm';
 import StatusTable from './components/StatusTable';
+import Template from './components/Template';
 
 // MUI - Components
 import Button from '@mui/material/Button';
@@ -45,10 +46,10 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       {
         viewState === DASHBOARD && (
-          <Container>
+          <Container maxWidth={false} sx={{ width: '100%' }}>
             <br />
             <Typography variant="h4" align="center">I'THAI'LY - Admin Dashboard</Typography>
             <br />
@@ -63,12 +64,12 @@ const App = () => {
       }
       {
         viewState === ITEM_LIST && (
-          <Container>
+          <Container maxWidth={false} sx={{ width: '100%' }}>
             <br />
             <Typography variant="h4" align="center">I'THAI'LY - Manage Items</Typography>
             <br />
             <ItemList setCurrentItemId={setCurrentItemId} setViewState={setViewState} />
-            <ItemForm currentItemId={currentItemId} setCurrentItemId={setCurrentItemId} />
+            {/* <ItemForm currentItemId={currentItemId} setCurrentItemId={setCurrentItemId} /> */}
           </Container>
         )
       }
@@ -83,7 +84,7 @@ const App = () => {
           </Container>
         )
       }
-    </Container>
+    </Container >
   );
 
 };

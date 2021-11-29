@@ -5,29 +5,34 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteItem } from '../actions/items';
 
+// MUI - Components
+import Button from '@mui/material/Button'
+import ButtonGroup from '@mui/material/ButtonGroup'
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
+import Chip from '@mui/material/Chip';
+
 const Item = ({ item, setCurrentItemId }) => {
 
   const dispatch = useDispatch();
 
   return (
-    <div>
-      <div>_id: {item._id}</div>
-      <div>name: {item.name}</div>
-      <div>price: {item.price}</div>
-      <div>description: {item.description}</div>
-      <div>category: {item.category}</div>
-      <div>options: {JSON.stringify(item.options)}</div>
-      <div>tags: {JSON.stringify(item.tags)}</div>
-      <div>image_url: NOT INCLUDED BECAUSE IT'S SO LONG (item.image_url)</div>
-      <div>
-        <div>item_url image (NOT PART OF SCHEMA):</div>
-        <img src={item.image_url} alt="image_url" height="100" width="100" />
-      </div>
-      <button type="button" onClick={() => setCurrentItemId(item._id)}>UPDATE</button>
-      <button type="button" onClick={() => dispatch(deleteItem(item._id))}>DELETE</button>
-      <br />
-      <br />
-    </div>
+    <TableRow>
+      {/* <TableCell><img src={item.image_url} /></TableCell> */}
+      <TableCell>PHOTO</TableCell>
+      <TableCell>{item.name}</TableCell>
+      <TableCell>{(item.options).join(', ')}</TableCell>
+      <TableCell>{item.category}</TableCell>
+      <TableCell>$ {item.price}</TableCell>
+      <TableCell>{item.description}</TableCell>
+      <TableCell>{(item.tags).join(', ')}</TableCell>
+      <TableCell align="center">
+        <ButtonGroup>
+          <Button onClick={() => setCurrentItemId(item._id)}>UPDATE</Button>
+          <Button onClick={() => dispatch(deleteItem(item._id))}>DELETE</Button>
+        </ButtonGroup>
+      </TableCell>
+    </TableRow>
   );
 
 };
