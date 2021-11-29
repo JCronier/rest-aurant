@@ -15,10 +15,19 @@ export const createOrder = (newOrder) => async (dispatch) => {
   try {
     const { data } = await api.createOrder(newOrder);
 
-    console.log(data);
-
     dispatch({ type: 'ORDERS/CREATE', payload: data });
   } catch (error) {
     console.log(error.message);
   }
+};
+
+export const editOrder = (order) => async (dispatch) => {
+  try {
+    const { data } = await api.putOrder(order);
+
+    dispatch({ type: 'ORDERS/FETCH_ALL', payload: data });
+    console.log(data, 'Order updated');
+  } catch(error) {
+    console.log(error.message);
+  };
 };

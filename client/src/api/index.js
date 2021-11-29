@@ -10,6 +10,7 @@ const orders_url = 'http://localhost:3001/orders';
 
 export const fetchOrders = () => axios.get(orders_url);
 export const createOrder = (newOrder) => axios.post(orders_url, newOrder);
+export const putOrder = (newOrder) => axios.put(orders_url + `/${newOrder.id}`, newOrder);
 
 // Tables
 const tables_url = 'http://localhost:3001/tables';

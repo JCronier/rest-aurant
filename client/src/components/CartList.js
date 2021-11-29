@@ -3,10 +3,19 @@ import React from "react";
 import { useContext } from "react";
 
 import OrderProvider, { orderContext } from "../providers/OrderProvider";
+import { viewContext } from "../providers/ViewProvider";
+
+const ITEM = 'ITEM';
 
 const CartList = () => {
-  const { state, getOrderId, removeItemFromOrder } = useContext(orderContext);
+  const { state, getOrderId, removeItemFromOrder, setItem } = useContext(orderContext);
+  const { changeView } = useContext(viewContext);
   const items = useSelector((state) => state.items);
+
+  const viewDetails = (id) => {
+    setItem(id);
+    changeView(ITEM);
+  };
 
   // Retrieve all records of the Order model
   // that is in the orders store.
@@ -26,7 +35,7 @@ const CartList = () => {
         </div>
         <ul>
           {cartItem.optionValues.map((optionValue) => <li>{optionValue}<br /></li>)}
-          {getOrderId() && <button onClick={() => console.log(index)}>Order Again</button>}
+          {getOrderId() && <button onClick={() => viewDetails(cartItem.item_id)}>Order Again</button>}
           <button onClick={() => removeItemFromOrder(index)}>Remove</button>
         </ul>
       </div>

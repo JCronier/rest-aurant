@@ -40,7 +40,7 @@ const App = () => {
   useEffect(() => {
     dispatch(getItems());
     dispatch(getOrders());
-  }, [dispatch])
+  }, [dispatch]);
 
   // Somehow table gets assigned.
   // For now, assume you scanned table with some identification of 1.
