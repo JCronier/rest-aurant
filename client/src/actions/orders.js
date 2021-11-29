@@ -22,3 +22,22 @@ export const createOrder = (newOrder) => async (dispatch) => {
     console.log(error.message);
   }
 };
+
+export const updateOrderStatus = (id, isPaid) => async (dispatch) => {
+  try {
+    const message = await api.updateOrderPaymentStatus(id, isPaid);
+    console.log(message)
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+
+// export const updateStatus = async (id, status) => {
+//   try {
+//     const message = await api.updateTableStatus(id, status);
+//     console.log(message);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
