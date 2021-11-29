@@ -15,6 +15,16 @@ import ItemForm from './components/ItemForm';
 import TableForm from './components/TableForm';
 import StatusTable from './components/StatusTable';
 
+// MUI - Components
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+
+// MUI - Icons
+import TableRestaurantIcon from '@mui/icons-material/TableRestaurant';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
+
 // View States
 const DASHBOARD = "DASHBOARD";
 const ITEM_LIST = "ITEM_LIST";
@@ -25,8 +35,6 @@ const App = () => {
   const [viewState, setViewState] = useState(DASHBOARD);
   const [currentItemId, setCurrentItemId] = useState(null);
 
-  // Allows us to dispatch any action to the store by
-  // adding an action as an argument.
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,25 +44,22 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <Paper variant="outlined">
       {
         viewState === DASHBOARD && (
           <div>
-            <h1>I'THAI'LY - ADMIN DASHBOARD</h1>
+            <br />
+            <br />
+            <Typography variant="h3" align="center">I'THAI'LY - Admin Dashboard</Typography>
+            <br />
+            <br />
+            <Stack spacing={2}>
+              <Button variant="contained" size="medium" startIcon={<FastfoodIcon />} onClick={() => setViewState(ITEM_LIST)}>Manage Items</Button>
+              <Button variant="contained" size="medium" startIcon={<TableRestaurantIcon />} onClick={() => setViewState(TABLE_LIST)}>Manage Tables</Button>
+            </Stack>
+            <br />
+            <br />
             <div>
-              <h2>[MENU]</h2>
-              <div>
-                <button type="button" onClick={() => setViewState(ITEM_LIST)} style={{ height: 50, width: 200 }}>MANAGE ITEMS</button>
-              </div>
-            </div>
-            <div>
-              <h2>[TABLES]</h2>
-              <div>
-                <button type="button" onClick={() => setViewState(TABLE_LIST)} style={{ height: 50, width: 200 }}>MANAGE TABLES</button>
-              </div>
-            </div>
-            <div>
-              <h2>[STATUS TABLE]</h2>
               <StatusTable />
             </div>
           </div>
@@ -63,7 +68,7 @@ const App = () => {
       {
         viewState === ITEM_LIST && (
           <div>
-            <h1>I'THAI'LY - MANAGE ITEMS</h1>
+            <Typography variant="h1" align="center">I'THAI'LY - Manage Items</Typography>
             <ItemList setCurrentItemId={setCurrentItemId} setViewState={setViewState} />
             <ItemForm currentItemId={currentItemId} setCurrentItemId={setCurrentItemId} />
           </div>
@@ -72,7 +77,7 @@ const App = () => {
       {
         viewState === TABLE_LIST && (
           <div>
-            <h1>I'THAI'LY - MANAGE TABLES</h1>
+            <Typography variant="h1" align="center">I'THAI'LY - Manage Tables</Typography>
             <TableList setViewState={setViewState} />
             <TableForm />
           </div>
@@ -96,7 +101,7 @@ const App = () => {
       {/* <div>
         <TableForm />
       </div> */}
-    </div >
+    </Paper >
   );
 };
 

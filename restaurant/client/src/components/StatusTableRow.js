@@ -6,11 +6,18 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { updateTable } from '../actions/tables';
 
-// MUI
+// MUI - Components
 import Button from '@mui/material/Button'
+import ButtonGroup from '@mui/material/ButtonGroup'
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
 
-// Styles
-import './Test.css';
+// Table States
+const VACANT = 'VACANT';
+const OCCUPIED = 'OCCUPIED';
+const PAID = 'PAID';
 
 const StatusTableRow = ({ table, orderedItemsAndOptions }) => {
 
@@ -31,9 +38,12 @@ const StatusTableRow = ({ table, orderedItemsAndOptions }) => {
     return orderedItemsAndOptions.map((orderedItemAndOptions) => {
       return (
         <div>
-          <div>{items.find((item) => item._id === orderedItemAndOptions.item_id).name}</div>
-          <div>{orderedItemAndOptions.optionValues.map((optionValue) => <div><li>{optionValue}</li></div>)}</div>
-          <br />
+          <div>
+            <b>{items.find((item) => item._id === orderedItemAndOptions.item_id).name}</b>
+          </div>
+          <div>
+            {orderedItemAndOptions.optionValues.map((optionValue) => <li>{optionValue}</li>)}
+          </div>
         </div>
       );
     });
@@ -56,7 +66,7 @@ const StatusTableRow = ({ table, orderedItemsAndOptions }) => {
       return total;
     }, 0);
 
-    return totalOfItemsOfOrdersForTable;
+    return `$ ${totalOfItemsOfOrdersForTable}`;
   };
 
   const listTableStatuses = () => {
@@ -66,43 +76,41 @@ const StatusTableRow = ({ table, orderedItemsAndOptions }) => {
     };
 
     return [
-      <a href="#" onClick={(event) => {
+      <Button onClick={(event) => {
         event.preventDefault();
-        updateTableStatus("VACANT")
+        updateTableStatus(VACANT);
       }}>
         VACANT
-      </a>,
-      <a href="#" onClick={(event) => {
+      </Button>,
+      <Button onClick={(event) => {
         event.preventDefault();
-        updateTableStatus("OCCUPIED")
+        updateTableStatus(OCCUPIED);
       }}>
         OCCUPIED
-      </a>,
-      <a href="#" onClick={(event) => {
+      </Button>,
+      <Button onClick={(event) => {
         event.preventDefault();
-        updateTableStatus("PAID")
+        updateTableStatus(PAID);
       }}>
         PAID
-      </a>
+      </Button>
     ];
   };
 
   return (
-    <tr>
-      <td style={{ border: '1px solid black' }}>{items.length > 0 && orders.length > 0 && tables.length > 0 ? table.id : 'Loading...'}</td>
-      <td style={{ border: '1px solid black' }}>{items.length > 0 && orders.length > 0 && tables.length > 0 ? table.status : 'Loading...'}</td>
-      <td style={{ border: '1px solid black' }}>{items.length > 0 && orders.length > 0 && tables.length > 0 ? renderItemsAndOptions() : 'Loading...'}</td>
-      <td style={{ border: '1px solid black' }}>{items.length > 0 && orders.length > 0 && tables.length > 0 ? getTableTotal() : 'Loading...'}</td>
-      <td style={{ border: '1px solid black', 'backgroundColor': '#04AA6D' }}>
-        <div className={items.length > 0 && orders.length > 0 && tables.length > 0 ? 'dropdown' : ''}>
-          <button className="dropbtn">{items.length > 0 && orders.length > 0 && tables.length > 0 ? 'EDIT STATUS' : 'Loading...'}</button>
-          <div className="dropdown-content">
-            {items.length > 0 && orders.length > 0 && tables.length > 0 ? listTableStatuses() : 'Loading...'}
-          </div>
-        </div>
-      </td>
-    </tr >
+    <TableRow key={table._id}>
+      <TableCell>{(items.length > 0 && orders.length > 0 && tables.length > 0) && table.id}</TableCell>
+      <TableCell align="left">{(items.length > 0 && orders.length > 0 && tables.length > 0) && table.status}</TableCell>
+      <TableCell align="left">{(items.length > 0 && orders.length > 0 && tables.length > 0) && renderItemsAndOptions()}</TableCell>
+      <TableCell align="right">{(items.length > 0 && orders.length > 0 && tables.length > 0) && getTableTotal()}</TableCell>
+      <TableCell align="center">
+        <ButtonGroup>
+          {listTableStatuses()}
+        </ButtonGroup>
+      </TableCell>
+    </TableRow >
   );
+
 };
 
 export default StatusTableRow;

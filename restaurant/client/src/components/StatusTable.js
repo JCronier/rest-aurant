@@ -7,6 +7,14 @@ import { useSelector } from 'react-redux';
 // Components 
 import StatusTableRow from './StatusTableRow';
 
+// MUI - Components
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+
 const StatusTable = () => {
 
   const orders = useSelector((state) => state.orders);
@@ -31,21 +39,24 @@ const StatusTable = () => {
   );
 
   return (
-    <table style={{ border: '1px solid black' }}>
-      <thead>
-        <tr>
-          <th style={{ border: '1px solid black' }}>Table</th>
-          <th style={{ border: '1px solid black' }}>Status</th>
-          <th style={{ border: '1px solid black' }}>Items</th>
-          <th style={{ border: '1px solid black' }}>Amount Owing</th>
-          <th style={{ border: '1px solid black' }}>Edit</th>
-        </tr>
-      </thead>
-      <tbody>
-        {orders.length > 0 && tables.length > 0 ? generateStatusTableRows() : <tr><td>Loading...</td></tr>}
-      </tbody>
-    </table>
+    <TableContainer>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Table</TableCell>
+            <TableCell align="left">Status</TableCell>
+            <TableCell align="left">Items</TableCell>
+            <TableCell align="right">Balance (CAD)</TableCell>
+            <TableCell align="center">Modify Status</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {(orders.length > 0 && tables.length > 0) && generateStatusTableRows()}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
+
 };
 
 export default StatusTable;
