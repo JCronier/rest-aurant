@@ -1,5 +1,6 @@
 // React
 import React from 'react';
+import CartList from "./CartList.js";
 
 // Context API
 import { useContext } from 'react';
@@ -79,7 +80,7 @@ const CartView = () => {
   return (
     <div>
       <div>
-        {cart}
+        <CartList />
       </div>
       <div>
         <button onClick={() => changeView(MENU)}>MENU</button>
@@ -87,13 +88,11 @@ const CartView = () => {
       <br />
       {/* makes a post request utilizing our current state to the orders document */}
       <div>
-        <button onClick={() => order()}>
-          ORDER
-        </button>
+        <button onClick={() => order()}>ORDER</button>
       </div>
     </div>
   );
 
-}
+};
 
 export default CartView;

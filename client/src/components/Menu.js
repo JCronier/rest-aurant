@@ -17,6 +17,7 @@ import { updateStatus } from '../actions/tables.js';
 
 // View States
 const CART = 'CART';
+const ORDERED = 'ORDERED';
 
 const FOOD = "Food";
 const DRINK = "Drink";
@@ -27,7 +28,7 @@ const Menu = () => {
   const params = new URLSearchParams(window.location.search);
   const table = params.get('table');
 
-  const { state, setItem, initCookie } = useContext(orderContext);
+  const { state, setItem, initCookie, getOrderId } = useContext(orderContext);
   const { changeView } = useContext(viewContext);
 
   useEffect(() => {
@@ -74,6 +75,10 @@ const Menu = () => {
     setMenuView(() => id);
   };
 
+  const checkOrderId = () => {
+    getOrderId() ? changeView(ORDERED) : changeView(CART);
+  };
+
   return (
     <div>
       <div>
@@ -86,7 +91,7 @@ const Menu = () => {
       </div>
       <br />
       <div>
-        {state.order.length > 0 && <button onClick={() => changeView(CART)}>CART</button>}
+        {state.order.length > 0 && <button onClick={() => checkOrderId()}>CART</button>}
       </div>
     </div>
   );
