@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 //Components for the Stripe API
 import CheckoutForm from "./CheckoutForm";
+// import Receipt from "./Receipt";
 
 
 
@@ -74,7 +75,6 @@ const PayView = () => {
         <button  onClick={() => setTipState(tips(subtotal(state.order))[1]*100)} >18%: {tips(subtotal(state.order))[1]}</button>  
         <button  onClick={() => setTipState(tips(subtotal(state.order))[2]*100)}>20%: {tips(subtotal(state.order))[2]}</button> 
         Custom Amount: %<input type="number" min="0" max="100" pattern="^[1-9]\d*$" onChange={(event) =>  event.target.value < 0 ? console.log('invalid number') : setTipState(((event.target.value/100) * subtotal(state.order)))}></input>
-        {/* console.log(event.target.value) */}
       </div>
       Your Total: ${total /100} CAD
         <CheckoutForm amount={total}/>

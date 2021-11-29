@@ -17,6 +17,7 @@ import PayView from './components/PayView';
 import OrderProvider from "./providers/OrderProvider"
 import { useContext } from 'react';
 import { viewContext } from './providers/ViewProvider';
+import { getReceipts } from './actions/receipts';
 
 // View States
 const MENU = 'MENU';
@@ -40,6 +41,7 @@ const App = () => {
   useEffect(() => {
     dispatch(getItems());
     dispatch(getOrders());
+    dispatch(getReceipts());
   }, [dispatch])
 
   // Somehow table gets assigned.

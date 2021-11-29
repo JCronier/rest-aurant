@@ -111,6 +111,7 @@ const ItemView = () => {
         <br />
         <div>
           <button type="submit">ADD TO CART</button>
+          <button onClick={() => changeView(MENU)}>BACK TO MENU</button>
         </div>
       </form>
     </div>
