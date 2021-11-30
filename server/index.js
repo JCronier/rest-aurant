@@ -3,6 +3,9 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from "path";
+
+const __dirname = path.resolve();
 
 dotenv.config();
 
@@ -16,11 +19,16 @@ import receiptRoutes from './routes/receipts.js';
 // Start new Express application.
 const app = express();
 
+
 // Middleware.
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors());
+const corsOptions = {
+  origin: '*',
+};
+
+app.use(cors(corsOptions));
 
 app.use('/items', itemRoutes);
 app.use('/orders', orderRoutes);
@@ -28,10 +36,18 @@ app.use('/tables', tableRoutes);
 app.use('/paymentintent', paymentIntent);
 app.use('/receipts', receiptRoutes);
 
+app.use(express.static(path.join(__dirname,"../client/build")));
+
 // MongoDB
 const CONNECTION_URL = process.env.CONNECTION_URL
 const PORT = process.env.PORT || 3001;
 
+app.get('/*', function (req, res) {
+  res.sendFile(path.join('/home/jordan/lighthouse/projects/rest-aurant/client/build', 'index.html'));
+});
+
 mongoose.connect(CONNECTION_URL)
-  .then(() => app.listen(PORT, () => console.log(`Server listening on PORT ${PORT}`)))
+  .then(() => app.listen(PORT, () => {
+    console.log(`Server listening on PORT ${PORT}`)
+}))
   .catch((error) => console.log(error.message));
