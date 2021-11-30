@@ -25,8 +25,8 @@ import Paper from '@mui/material/Paper';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.common.black,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -68,7 +68,7 @@ const PayView = () => {
   const OrderTable = () => {
     return (
       <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+      <Table sx={{ minWidth: 200 }} aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Item</StyledTableCell>
@@ -122,6 +122,10 @@ const PayView = () => {
 
   const total = Math.round(subtotal(state.order) + tipState)
 
+  const tableContainerStyle = {
+    width:'40em'
+  }
+
   return (
     <div>
       <Typography variant="h2" component="h2">
@@ -129,7 +133,9 @@ const PayView = () => {
       </Typography>
 
       <Typography variant="h4">Your order:</Typography>
+      <div>
         {OrderTable()}
+      </div>
       <Typography>Your subtotal: {` $${parseFloat(subtotal(state.order)) / 100} CAD`}</Typography>
       
       <div>

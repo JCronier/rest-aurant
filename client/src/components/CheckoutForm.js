@@ -15,6 +15,7 @@ import { orderContext } from "../providers/OrderProvider";
 import {CardElement, CardNumberElement, PaymentElement} from '@stripe/react-stripe-js';
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import Receipt from "./Receipt";
+import { Button } from "@mui/material";
 
 
 
@@ -125,13 +126,15 @@ const CheckoutForm = (props) => {
     <div>
     <form id="payment-form" onSubmit={handleSubmit}>
       {!succeeded && (
-        <div class="payment-input" style={paymentStyle}>
+        <div className="payment-input" style={paymentStyle}>
           <CardElement id="card-element" onChange={handleChange} options={options}/>
-          <button disabled={processing || disabled || succeeded} id="submit">
+
+          <Button disabled={processing || disabled || succeeded} variant="contained"  id="submit" type="submit">{processing ? "Processing.." : "Pay" }</Button>
+          {/* <button disabled={processing || disabled || succeeded} id="submit">
             <span id="button-text">
               {processing ? <div className="spinner" id="spinner"></div> : "Pay"}
             </span>
-          </button>
+          </button> */}
         </div>
       )}
       
