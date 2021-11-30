@@ -136,7 +136,7 @@ const PayView = () => {
       <div>
         {OrderTable()}
       </div>
-      <Typography>Your subtotal: {` $${parseFloat(subtotal(state.order)) / 100} CAD`}</Typography>
+      <Typography>Subtotal: {` $${parseFloat(subtotal(state.order)) / 100} CAD`}</Typography>
       
       <div>
         <Typography>Tip Amount:</Typography>

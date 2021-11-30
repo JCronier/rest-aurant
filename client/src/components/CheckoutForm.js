@@ -15,7 +15,7 @@ import { orderContext } from "../providers/OrderProvider";
 import {CardElement, CardNumberElement, PaymentElement} from '@stripe/react-stripe-js';
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import Receipt from "./Receipt";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 
 
@@ -68,7 +68,6 @@ const CheckoutForm = (props) => {
       //succesful payment logic
       setError(null);
       setProcessing(false);
-      setSucceeded(true);
       console.log('succesful payment: ',payload)
       //uses the built-in API function to send a patch request to our table
       updateTableStatus(state.table, "PAID")
@@ -88,6 +87,7 @@ const CheckoutForm = (props) => {
     const receiptData = {amount_paid, table, items, options, confirmation_code, order_id}
     console.log('sending...', receiptData)
     dispatch(createReceipt(receiptData))
+    setSucceeded(true);
   }
 
   //Request to the server for payment secret
@@ -130,11 +130,6 @@ const CheckoutForm = (props) => {
           <CardElement id="card-element" onChange={handleChange} options={options}/>
 
           <Button disabled={processing || disabled || succeeded} variant="contained"  id="submit" type="submit">{processing ? "Processing.." : "Pay" }</Button>
-          {/* <button disabled={processing || disabled || succeeded} id="submit">
-            <span id="button-text">
-              {processing ? <div className="spinner" id="spinner"></div> : "Pay"}
-            </span>
-          </button> */}
         </div>
       )}
       
@@ -142,7 +137,7 @@ const CheckoutForm = (props) => {
         <div className="card-error" role="alert">{error}</div>
       )}
       {succeeded && (
-        <p className={succeeded ? "result-message" : "result-message hidden"}>Payment succeeded!</p>
+        <div className={succeeded ? "result-message" : "result-message hidden"}><Typography>Payment succeeded!</Typography></div>
       )}
     </form>
       {succeeded && (
