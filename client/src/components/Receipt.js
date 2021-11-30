@@ -1,3 +1,4 @@
+import { Paper, Typography } from '@mui/material';
 import React from 'react';
 
 import { useSelector } from 'react-redux';
@@ -14,21 +15,33 @@ const Receipt = (props) => {
 
   console.log('my receipt is: ', userReceipt)
   
-  const userItems = userReceipt.items.map((item) => {
+  const userItems = userReceipt.items.map((cartItem) => {
+    const itemObj = items.find((item) => item._id === cartItem)
+    
     return (
-      <div>
-        {item}
-      </div>
+      <Typography>
+        {itemObj.name}
+      </Typography>
     )
   })
 
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+  const today  = new Date();
+
+  const receiptStyle ={
+    width:'25em',
+    padding:'1em',
+    'margin-top':'1em'
+  }
+
   return (
     <div>
-      Total: {userReceipt.amount_paid /100} <br></br>
-      Items: {userItems}<br></br>
-      Confirmation Code: {userReceipt.confirmation_code} 
-      Date: {userReceipt.date_created}
-      test
+      <Paper elevation={4} style={receiptStyle}>
+        <Typography>Total: {(userReceipt.amount_paid /100).toFixed(2)}</Typography>
+        <Typography>Items: </Typography>{userItems}<br></br>
+        <Typography>Confirmation Code: {userReceipt.confirmation_code}</Typography> 
+        <Typography>Date: {today.toLocaleDateString("en-US", options)}</Typography>
+      </Paper>
     </div>
   )
 }

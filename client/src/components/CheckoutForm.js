@@ -123,7 +123,7 @@ const CheckoutForm = (props) => {
   }
   
   return (
-    <div>
+    <div class="receipt-container">
     <form id="payment-form" onSubmit={handleSubmit}>
       {!succeeded && (
         <div className="payment-input" style={paymentStyle}>
