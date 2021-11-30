@@ -3,19 +3,13 @@ import React from "react";
 // Context API
 import { useContext, useState } from 'react';
 import { orderContext } from '../providers/OrderProvider';
-import { viewContext } from "../providers/ViewProvider";
-
-// // Stripe API
-// import {loadStripe} from '@stripe/stripe-js';
-// import {Elements} from '@stripe/react-stripe-js';
+// import { viewContext } from "../providers/ViewProvider";
 
 //Redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 //Components for the Stripe API
 import CheckoutForm from "./CheckoutForm";
-// import Receipt from "./Receipt";
-
 
 
 const PayView = () => {
