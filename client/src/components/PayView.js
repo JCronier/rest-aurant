@@ -122,10 +122,6 @@ const PayView = () => {
 
   const total = Math.round(subtotal(state.order) + tipState)
 
-  const tableContainerStyle = {
-    width:'40em'
-  }
-
   return (
     <div>
       <Typography variant="h2" component="h2">
@@ -137,19 +133,20 @@ const PayView = () => {
         {OrderTable()}
       </div>
       <Typography>Subtotal: {` $${parseFloat(subtotal(state.order)) / 100} CAD`}</Typography>
-      
-      <div>
-        <Typography>Tip Amount:</Typography>
+      {!state.paid && (
         <div>
-          <Button variant="outlined" size="small" onClick={() => setTipState(tips(subtotal(state.order))[0]*100)}>15%: ${tips(subtotal(state.order))[0]}</Button>
-          <Button variant="outlined" size="small" onClick={() => setTipState(tips(subtotal(state.order))[1]*100)}>18%: ${tips(subtotal(state.order))[1]}</Button>
-          <Button variant="outlined" size="small" onClick={() => setTipState(tips(subtotal(state.order))[2]*100)}>20%: ${tips(subtotal(state.order))[2]}</Button>
+          <Typography>Tip Amount:</Typography>
           <div>
-            <Typography>Custom Amount:</Typography>
-            <TextField size="small" label="Tip %" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} onChange={(event) =>  event.target.value < 0 ? console.log('invalid number') : setTipState(((event.target.value/100) * subtotal(state.order)))} />
+            <Button variant="outlined" size="small" onClick={() => setTipState(tips(subtotal(state.order))[0]*100)}>15%: ${tips(subtotal(state.order))[0]}</Button>
+            <Button variant="outlined" size="small" onClick={() => setTipState(tips(subtotal(state.order))[1]*100)}>18%: ${tips(subtotal(state.order))[1]}</Button>
+            <Button variant="outlined" size="small" onClick={() => setTipState(tips(subtotal(state.order))[2]*100)}>20%: ${tips(subtotal(state.order))[2]}</Button>
+            <div>
+              <Typography>Custom Amount:</Typography>
+              <TextField size="small" label="Tip %" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} onChange={(event) =>  event.target.value < 0 ? console.log('invalid number') : setTipState(((event.target.value/100) * subtotal(state.order)))} />
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <Typography>Your Total: ${total /100} CAD</Typography>
       <CheckoutForm amount={total}/>
       

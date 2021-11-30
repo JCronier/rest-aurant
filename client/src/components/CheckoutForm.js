@@ -23,7 +23,7 @@ import { Button, Typography } from "@mui/material";
 const CheckoutForm = (props) => {
 
   //our order state
-  const { state } = useContext(orderContext);
+  const { state, setPaid } = useContext(orderContext);
 
   //Allows the rendering of stripe API elements
   const stripe = useStripe();
@@ -68,6 +68,7 @@ const CheckoutForm = (props) => {
       //succesful payment logic
       setError(null);
       setProcessing(false);
+      setPaid(true);
       console.log('succesful payment: ',payload)
       //uses the built-in API function to send a patch request to our table
       updateTableStatus(state.table, "PAID")

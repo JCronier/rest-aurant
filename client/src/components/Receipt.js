@@ -37,7 +37,7 @@ const Receipt = (props) => {
   return (
     <div>
       <Paper elevation={4} style={receiptStyle}>
-        <Typography>Total: {(userReceipt.amount_paid /100).toFixed(2)}</Typography>
+        <Typography>Total: ${(userReceipt.amount_paid /100).toFixed(2)}</Typography>
         <Typography>Items: </Typography>{userItems}<br></br>
         <Typography>Confirmation Code: {userReceipt.confirmation_code}</Typography> 
         <Typography>Date: {today.toLocaleDateString("en-US", options)}</Typography>
