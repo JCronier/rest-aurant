@@ -76,8 +76,6 @@ const CheckoutForm = (props) => {
     }
   };
 
-
-
   const receipt = (amountPaid, confirmationCode) => {
     const amount_paid = parseInt(amountPaid);
     const table = state.table;
@@ -106,14 +104,29 @@ const CheckoutForm = (props) => {
   //do not remove, ensures that new secret is created whenever transaction total changes to match 
   [props.amount])
 
-  // const options = 'bluh'
+  const options = {
+    style: {
+
+      base: {
+        iconColor: "rgb(16, 179, 173)",
+        color: "rgb(6, 82, 158)",
+        fontSize: "16px",
+        fontFamily: '"Open Sans", sans-serif',
+        fontSmoothing: "antialiased"
+      }
+    }
+  }
+
+  const paymentStyle = {
+    width:'27em'
+  }
   
   return (
     <div>
     <form id="payment-form" onSubmit={handleSubmit}>
       {!succeeded && (
-        <div>
-          <CardElement id="card-element" onChange={handleChange}/>
+        <div class="payment-input" style={paymentStyle}>
+          <CardElement id="card-element" onChange={handleChange} options={options}/>
           <button disabled={processing || disabled || succeeded} id="submit">
             <span id="button-text">
               {processing ? <div className="spinner" id="spinner"></div> : "Pay"}
