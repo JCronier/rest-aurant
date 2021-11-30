@@ -6,6 +6,10 @@ import { useContext } from 'react';
 import { orderContext } from '../providers/OrderProvider';
 import { viewContext } from '../providers/ViewProvider';
 
+import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, Button, TextField } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+
+
 // Redux
 import { useSelector } from 'react-redux';
 
@@ -52,19 +56,34 @@ const ItemView = () => {
     setOptionsState(updatedOptionsState);
   };
 
-  // Generate checkbox-type input tags that represent options connected to 
+  // Generate checkbox-type input tags that represent options connected to
   // the item in focus.
   //
   // options, being an array of checkbox-type input tags, will then be
   // inserted within a form to be rendered.
   const options = item.options.map((option, index) => {
+
     return (
-      <div key={index}>
-        <input type="checkbox" name={option} value={option} checked={optionsState[index]} onChange={() => handleOnChange(index)}></input>
-        <label htmlFor={option}>{option}</label>
-      </div>
-    )
-  });
+      <ListItem
+        key={index}
+        disablePadding
+      >
+        <ListItemButton role={undefined} onClick={() => handleOnChange(index)} dense>
+          <ListItemIcon>
+            <Checkbox
+              edge="start"
+              checked={optionsState[index]}
+              value={option}
+              disableRipple
+            />
+          </ListItemIcon>
+          <ListItemText id={option} primary={option} />
+        </ListItemButton>
+      </ListItem>
+    );
+
+
+  })
 
   // Constructs the final list of options (including special instructions).
   const finalizeOptions = (specialInstruction) => {
@@ -98,20 +117,23 @@ const ItemView = () => {
 
   return (
     <div>
-      <div>
-        {item.name}
-      </div>
+      <h1>{item.name}</h1>
+      <h3>Options:</h3>
       <br />
       <form onSubmit={(event) => handleSubmit(event)}>
         {options}
         <br />
         <div>
-          <textarea type="text" name="customOption" placeholder="Special Instructions"></textarea>
+          <TextField name="customOption" minRows={2} placeholder="Special Instructions" sx={{width: '100%'}} variant="standard"></TextField >
         </div>
-        <br />
-        <div>
-          <button type="submit">ADD TO CART</button>
-          <button onClick={() => changeView(MENU)}>BACK TO MENU</button>
+        <div style={{position: 'fixed', bottom: '10px', width: '100%', display: 'flex', justifyContent: 'center'}}>
+          <Button
+            variant="contained"
+            type="submit"
+            sx={{width: '95%'}}
+            >
+              Add to Order ${item.price}
+          </Button>
         </div>
       </form>
     </div>

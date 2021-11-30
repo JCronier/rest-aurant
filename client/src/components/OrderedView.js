@@ -45,8 +45,8 @@ const OrderedView = () => {
   };
 
   const subtotal = state.order.reduce((prev, curr) => {
-    return prev + items.find((item) => item._id === curr.item_id).price
-  }, 0);
+    return prev + (items.find((item) => item._id === curr.item_id).price)
+  }, 0.00);
 
   return (
     <div>
@@ -66,7 +66,7 @@ const OrderedView = () => {
           onClick={() => changeView(PAYBILL)}
           sx={{width: '200px'}}
           >
-            Pay Bill $ {subtotal}
+            Pay Bill ${subtotal.toFixed(2)}
         </Button>
       </div>
     </div>

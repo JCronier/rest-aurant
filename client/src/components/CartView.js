@@ -35,22 +35,6 @@ const CartView = () => {
   // adding an action as an argument.
   const dispatch = useDispatch();
 
-  // Populate cart with html structure representing
-  // each item added to the cart with corresponding
-  // chosen options.
-  const cart = state.order.map((cartItem) => {
-    return (
-      <div>
-        <div>
-          {items.find((item) => item._id === cartItem.item_id).name}
-        </div>
-        <ul>
-          {cartItem.optionValues.map((optionValue) => <li>{optionValue}<br /></li>)}
-        </ul>
-      </div>
-    )
-  });
-
   const subtotal = state.order.reduce((prev, curr) => {
     return prev + (items.find((item) => item._id === curr.item_id).price);
   }, 0.00);
@@ -84,15 +68,22 @@ const CartView = () => {
 
   return (
     <div>
-      <CartList />
+      {state.order.length > 0 ?
+       (
+        <>
+          <h3>Please review your order below</h3>
+          <CartList/>
+        </>
+       )
+       : (<h3>Your order is empty!</h3>)}
       <div style={{position: 'fixed', bottom: '10px', width: '100%', display: 'flex', justifyContent: 'center'}}>
-        <Button
+      {state.order.length > 0 && <Button
           variant="contained"
           onClick={() => order()}
           sx={{width: '95%'}}
           >
-            Place Order $ {subtotal}
-        </Button>
+            Place Order ${subtotal.toFixed(2)}
+        </Button>}
       </div>
     </div>
   );
