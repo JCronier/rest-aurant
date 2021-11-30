@@ -1,6 +1,6 @@
 // React
 import React from 'react';
-import CartList from "./CartList.js";
+import CartList from "./CartList/CartList.js";
 
 // Context API
 import { useContext } from 'react';
@@ -10,6 +10,7 @@ import { viewContext } from '../providers/ViewProvider';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrder } from '../actions/orders';
+import { Button } from '@mui/material';
 
 // View States
 const MENU = 'MENU';
@@ -50,6 +51,10 @@ const CartView = () => {
     )
   });
 
+  const subtotal = state.order.reduce((prev, curr) => {
+    return prev + (items.find((item) => item._id === curr.item_id).price);
+  }, 0.00);
+
   // Changes view state to ORDERED and dispatches
   // an action to create a new order to the database.
   const order = () => {
@@ -79,16 +84,15 @@ const CartView = () => {
 
   return (
     <div>
-      <div>
-        <CartList />
-      </div>
-      <div>
-        <button onClick={() => changeView(MENU)}>MENU</button>
-      </div>
-      <br />
-      {/* makes a post request utilizing our current state to the orders document */}
-      <div>
-        <button onClick={() => order()}>ORDER</button>
+      <CartList />
+      <div style={{position: 'fixed', bottom: '10px', width: '100%', display: 'flex', justifyContent: 'center'}}>
+        <Button
+          variant="contained"
+          onClick={() => order()}
+          sx={{width: '95%'}}
+          >
+            Place Order $ {subtotal}
+        </Button>
       </div>
     </div>
   );
