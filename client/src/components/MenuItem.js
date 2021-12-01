@@ -30,6 +30,13 @@ const MenuItem = ({ item, changeView }) => {
     backgroundColor:''
   }
 
+  const secondaryStyle = {
+    width:'100%',
+    display:'flex',
+    'flex-direction':'row',
+    'justify-content': 'space-around'
+  }
+
   if(over){
     menuItemStyles.backgroundColor="Gainsboro";
   }
@@ -40,7 +47,7 @@ const MenuItem = ({ item, changeView }) => {
   return (
     <div>
       <Paper sx={{ width: 40 + 'em' }} elevation={4} style={menuItemStyles} onMouseOver={()=>setOver(true)} onMouseOut={()=>setOver(false)} onClick={() => viewDetails()}>
-        <div>
+        <div style={secondaryStyle}>
           <img href={item.image_url} alt={item.name}></img>
           <div>
             <Typography variant="subtitle1">{item.name}</Typography>
