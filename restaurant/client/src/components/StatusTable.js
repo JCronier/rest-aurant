@@ -40,7 +40,7 @@ const StatusTable = () => {
   );
 
   return (
-    <TableContainer component={Paper} sx={{ maxHeight: 560 }}>
+    <TableContainer component={Paper} sx={{ maxHeight: 565 }}>
       <Table stickyHeader>
         <TableHead>
           <TableRow>
@@ -52,7 +52,7 @@ const StatusTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {(orders.length > 0 && tables.length > 0) && generateStatusTableRows()}
+          {tables.length > 0 && generateStatusTableRows()}
         </TableBody>
       </Table>
     </TableContainer>

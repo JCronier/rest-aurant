@@ -98,23 +98,23 @@ const StatusTableRow = ({ table, orderedItemsAndOptions }) => {
 
   return (
     <TableRow hover key={table._id}>
-      <TableCell>{(items.length > 0 && orders.length > 0 && tables.length > 0) && table.id}</TableCell>
+      <TableCell>{(tables.length > 0) && table.id}</TableCell>
       <TableCell align="left">
         {
-          (items.length > 0 && orders.length > 0 && tables.length > 0 && table.status === VACANT)
+          (tables.length > 0 && table.status === VACANT)
           && <Chip label={table.status} sx={{ color: 'white', bgcolor: 'dodgerblue' }} />
         }
         {
-          (items.length > 0 && orders.length > 0 && tables.length > 0 && table.status === OCCUPIED)
+          (tables.length > 0 && table.status === OCCUPIED)
           && <Chip label={table.status} sx={{ color: 'white', bgcolor: 'orange' }} />
         }
         {
-          (items.length > 0 && orders.length > 0 && tables.length > 0 && table.status === PAID)
+          (tables.length > 0 && table.status === PAID)
           && <Chip label={table.status} sx={{ color: 'white', bgcolor: 'mediumseagreen' }} />
         }
       </TableCell>
-      <TableCell align="left">{(items.length > 0 && orders.length > 0 && tables.length > 0) && renderItemsAndOptions()}</TableCell>
-      <TableCell align="right">$ {(items.length > 0 && orders.length > 0 && tables.length > 0) && getTableTotal()}</TableCell>
+      <TableCell align="left">{(items.length > 0 && orders.length > 0 && tables.length > 0) ? renderItemsAndOptions() : 'NO ORDERS'}</TableCell>
+      <TableCell align="right">{(items.length > 0 && orders.length > 0 && tables.length > 0) ? getTableTotal() : 0}</TableCell>
       <TableCell align="center">
         <ButtonGroup>
           {listTableStatuses()}
