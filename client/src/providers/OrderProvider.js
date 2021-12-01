@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react';
-import { useCookies } from 'react-cookie';
+import { useCookies, removeCookie } from 'react-cookie';
 
 export const orderContext = createContext();
 
@@ -28,7 +28,7 @@ export default function OrderProvider(props) {
     paid: false
   });
 
-  const [ cookies, setCookies ] = useCookies(['customer']);
+  const [ cookies, setCookies, removeCookie ] = useCookies(['customer']);
 
   const initCookie = (table) => {
     if (cookies.customer) {
@@ -90,7 +90,11 @@ export default function OrderProvider(props) {
     setState((prev) => ({...prev, paid: isPaid}))
   }
 
-  const data = { state, setItem, addItemToOrder, resetItem, resetOrder, initCookie, setOrderId, getOrderId, removeItemFromOrder, setPaid };
+  const destroyCookie = () => {
+    removeCookie("customer");
+  }
+
+  const data = { state, setItem, addItemToOrder, resetItem, resetOrder, initCookie, setOrderId, getOrderId, removeItemFromOrder, setPaid, destroyCookie };
 
   return (
     <orderContext.Provider value={data}>
