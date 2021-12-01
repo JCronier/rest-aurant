@@ -65,7 +65,7 @@ const StatusTableRow = ({ table, orderedItemsAndOptions }) => {
       return total;
     }, 0);
 
-    return totalOfItemsOfOrdersForTable;
+    return (totalOfItemsOfOrdersForTable).toFixed(2);
   };
 
   const listTableStatuses = () => {
