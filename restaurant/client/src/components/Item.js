@@ -23,7 +23,7 @@ const Item = ({ item, setCurrentItemId }) => {
       <TableCell>{item.name}</TableCell>
       <TableCell>{(item.options).join(', ')}</TableCell>
       <TableCell>{item.category}</TableCell>
-      <TableCell>$ {item.price}</TableCell>
+      <TableCell>$ {(item.price).toFixed(2)}</TableCell>
       <TableCell>{item.description}</TableCell>
       <TableCell>{(item.tags).join(', ')}</TableCell>
       <TableCell align="center">
