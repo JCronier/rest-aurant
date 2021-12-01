@@ -15,6 +15,7 @@ import ItemForm from './components/ItemForm';
 import TableForm from './components/TableForm';
 import StatusTable from './components/StatusTable';
 import ItemList from './components/ItemList';
+import SearchBar from './components/SearchBar';
 
 // MUI - Components
 import Button from '@mui/material/Button';
@@ -38,6 +39,7 @@ const App = () => {
 
   const [viewState, setViewState] = useState(DASHBOARD);
   const [currentItemId, setCurrentItemId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const dispatch = useDispatch();
 
@@ -85,7 +87,12 @@ const App = () => {
               <ItemForm currentItemId={currentItemId} setCurrentItemId={setCurrentItemId} />
             </div>
             <br />
-            <ItemList setCurrentItemId={setCurrentItemId} setViewState={setViewState} />
+            <SearchBar
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
+            <br />
+            <ItemList setCurrentItemId={setCurrentItemId} setViewState={setViewState} searchQuery={searchQuery}/>
           </Container>
         )
       }

@@ -33,11 +33,22 @@ import FileBase from 'react-file-base64';
 // View States
 const DASHBOARD = "DASHBOARD";
 
-const ItemList = ({ setCurrentItemId, setViewState }) => {
+const ItemList = ({ setCurrentItemId, setViewState, searchQuery }) => {
 
   const items = useSelector((state) => state.items);
 
   const dispatch = useDispatch();
+
+  const filterItems = (items, query) => {
+    if (!query) {
+      return items;
+    }
+
+    return items.filter((item) => {
+      const itemName = item.name.toLowerCase();
+      return itemName.includes(query.toLowerCase());
+    });
+  };
 
   // const generateItems = () => (
   //   items.map((item) => (
@@ -48,7 +59,7 @@ const ItemList = ({ setCurrentItemId, setViewState }) => {
   const generateItems = () => {
     let idCount = 0;
 
-    return items.map((item) => {
+    return filterItems(items, searchQuery).map((item) => {
 
       return {
         _id: item._id,

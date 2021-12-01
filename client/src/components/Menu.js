@@ -30,9 +30,7 @@ const DRINK = "Drink";
 const DESSERT = "Dessert";
 
 const Menu = () => {
-  const { search } = window.location;
-  const query = new URLSearchParams(search).get('s');
-  const [searchQuery, setSearchQuery] = useState(query || '');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const params = new URLSearchParams(window.location.search);
   const table = params.get('table');
@@ -46,7 +44,7 @@ const Menu = () => {
   }, []);
 
   const [menuView, setMenuView] = useState(FOOD);
-  
+
   const filterTags = (tags, query) => {
 
     return tags.some((tag) => {
