@@ -1,9 +1,11 @@
 // import axios from "axios";
 const axios = require("axios")
 
+const api_url = process.env.REACT_APP_NGROK_URL
+
 const qrCode = async (id) => {
   const qrObject = {
-    data: `http://localhost:3000/?table=${id}`,
+    data: `${api_url}/?table=${id}`,
     size: 300,
     download: true,
     file: 'svg'
@@ -14,7 +16,7 @@ const qrCode = async (id) => {
   try {
     const { data } = await axios.post(qrUrl, qrObject);
     return data.imageUrl;
-  } catch(e) {
+  } catch (e) {
     console.log(e.message);
   }
 };

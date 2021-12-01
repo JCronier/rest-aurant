@@ -13,7 +13,7 @@ const MenuItem = ({ item, changeView }) => {
 
   const { setItem } = useContext(orderContext);
 
-  let [over, setOver]=useState(false);
+  let [over, setOver] = useState(false);
 
   // Function that updates the view state and item to focus on.
   const viewDetails = () => {
@@ -25,26 +25,26 @@ const MenuItem = ({ item, changeView }) => {
     padding: '1em',
     'margin-top': '1em',
     display: 'flex',
-    'flex-direction':'column',
+    'flex-direction': 'column',
     'align-items': 'center',
-    backgroundColor:''
+    backgroundColor: ''
   }
 
-  if(over){
-    menuItemStyles.backgroundColor="Gainsboro";
+  if (over) {
+    menuItemStyles.backgroundColor = "Gainsboro";
   }
-  else{
-    menuItemStyles.backgroundColor='';
+  else {
+    menuItemStyles.backgroundColor = '';
   }
 
   return (
     <div>
-      <Paper sx={{ width: 40 + 'em' }} elevation={4} style={menuItemStyles} onMouseOver={()=>setOver(true)} onMouseOut={()=>setOver(false)} onClick={() => viewDetails()}>
-        <div>
-          <img href={item.image_url} alt={item.name}></img>
+      <Paper sx={{ width: 40 + 'em' }} elevation={4} style={menuItemStyles} onMouseOver={() => setOver(true)} onMouseOut={() => setOver(false)} onClick={() => viewDetails()}>
+        <div align="center">
+          <img style={{ width: 100, height: 100 }} src={item.image_url} alt={item.name}></img>
           <div>
             <Typography variant="subtitle1">{item.name}</Typography>
-            <Typography>${item.price}</Typography>
+            <Typography>{item.price}</Typography>
           </div>
         </div>
         <Typography>{item.description}</Typography>
