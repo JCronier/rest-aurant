@@ -16,6 +16,7 @@ import {CardElement, CardNumberElement, PaymentElement} from '@stripe/react-stri
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import Receipt from "./Receipt";
 import { Button, Typography } from "@mui/material";
+import { updateOrderStatus } from "../actions/orders";
 
 
 
@@ -76,6 +77,7 @@ const CheckoutForm = (props) => {
       console.log(`table ${state.table} changed to PAID`)
       receipt(payload.paymentIntent.amount, payload.paymentIntent.id)
       setSucceeded(true)
+      updateOrderStatus(getOrderId() ,true)
       destroyCookie();
     }
   };
