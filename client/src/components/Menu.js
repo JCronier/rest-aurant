@@ -19,6 +19,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 // MUI
 import { Tabs, Tab } from "@mui/material";
+import SearchBar from './SearchBar';
 
 // View States
 const CART = 'CART';
@@ -29,6 +30,9 @@ const DRINK = "Drink";
 const DESSERT = "Dessert";
 
 const Menu = () => {
+  const { search } = window.location;
+  const query = new URLSearchParams(search).get('s');
+  const [searchQuery, setSearchQuery] = useState(query || '');
 
   const params = new URLSearchParams(window.location.search);
   const table = params.get('table');
@@ -42,6 +46,25 @@ const Menu = () => {
   }, []);
 
   const [menuView, setMenuView] = useState(FOOD);
+  
+  const filterTags = (tags, query) => {
+
+    return tags.some((tag) => {
+      const tagName = tag.toLowerCase();
+      return tagName.includes(query);
+    });
+  };
+
+  const filterItems = (items, query) => {
+    if (!query) {
+      return items;
+    }
+
+    return items.filter((item) => {
+      const itemName = item.name.toLowerCase();
+      return itemName.includes(query) || filterTags(item.tags, query);
+    });
+  };
 
 
   // Retrieve all records of the Item model
@@ -69,12 +92,14 @@ const Menu = () => {
   // changeView - Function that adds a new view (e.g., "ITEM") into the view state defined in App.js,
   //              which then renders the corresponding component.
   //
+  const filteredItems = filterItems(items, searchQuery);
   // setItem - Function that helps the application know which Item record is in focus.
-  const generateMenuItems = (category) => (
-    items.map((item) => (
-      item.category === category && <MenuItem key={item._id} item={item} changeView={changeView} setItem={setItem} />
-    ))
-  );
+  const generateMenuItems = (category) => {
+    return filteredItems.map((item) => {
+      console.log(item)
+      return item.category === category && <MenuItem key={item._id} item={item} changeView={changeView} setItem={setItem} />
+    })
+  };
 
   const changeMenuView = (event, id) => {
     setMenuView(id);
@@ -84,10 +109,17 @@ const Menu = () => {
     getOrderId() ? changeView(ORDERED) : changeView(CART);
   };
 
+  console.log(searchQuery)
 
 
   return (
     <div>
+      <br />
+      <SearchBar
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
+      <br />
       <Tabs
         value={menuView}
         onChange={changeMenuView}
