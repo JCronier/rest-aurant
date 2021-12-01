@@ -23,6 +23,7 @@ import { loadStripe } from '@stripe/stripe-js';
 //stripe public key
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
+
 const options = {
   // passing the client secret obtained from the server
   clientSecret: `${process.env.REACT_APP_STRIPE_SECRET}` 
