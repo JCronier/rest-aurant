@@ -22,6 +22,7 @@ export const createOrder = (newOrder) => async (dispatch) => {
 };
 
 export const updateOrderStatus = (id, isPaid) => async (dispatch) => {
+  console.log('bluh bluh bluh bluh')
   try {
     const message = await api.updateOrderPaymentStatus(id, isPaid);
     console.log(message)

@@ -24,7 +24,7 @@ import { updateOrderStatus } from "../actions/orders";
 const CheckoutForm = (props) => {
 
   //our order state
-  const { state, setPaid, getOrderId, destroyCookie } = useContext(orderContext);
+  const { state, setPaid, getOrderId, destroyCookie, resetOrder } = useContext(orderContext);
 
   //Allows the rendering of stripe API elements
   const stripe = useStripe();
@@ -79,6 +79,7 @@ const CheckoutForm = (props) => {
       setSucceeded(true)
       updateOrderStatus(getOrderId() ,true)
       destroyCookie();
+      resetOrder();
     }
   };
 
