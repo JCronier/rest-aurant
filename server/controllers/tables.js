@@ -29,9 +29,9 @@ export const updateTable = async (req, res) => {
   const { id } = req.params;
   const { _id, qr_code, status } = req.body;
 
-  if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send(`No table with id: ${_id}`);
+  // if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send(`No table with id: ${_id}`);
 
-  const tableWithUpdatedStatus = { _id, id: Number(id), qr_code, status };
+  const tableWithUpdatedStatus = { id: Number(id), qr_code, status };
 
   await Table.findOneAndUpdate({ id }, tableWithUpdatedStatus, { new: true });
 

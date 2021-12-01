@@ -58,9 +58,9 @@ const CartList = () => {
           <StyledTableRow key={items.find((item) => item._id === cartItem.item_id).name}>
             <StyledTableCell component="th" scope="row">
               {items.find((item) => item._id === cartItem.item_id).name}
-              {cartItem.optionValues.map((optionValue) => <ListItem>{optionValue}</ListItem>)}
+              {cartItem.optionValues.map((optionValue) => <ListItem color="secondary">{optionValue}</ListItem>)}
             </StyledTableCell>
-            <StyledTableCell align="right">${items.find((item) => item._id === cartItem.item_id).price}</StyledTableCell>
+            <StyledTableCell align="right">${items.find((item) => item._id === cartItem.item_id).price.toFixed(2)}</StyledTableCell>
             <StyledTableCell align="right">
               <IconButton color="primary" onClick={() => viewDetails(cartItem.item_id)}><AddCircleOutlineIcon /></IconButton>
               <IconButton onClick={() => removeItemFromOrder(index)}><DeleteOutlineOutlinedIcon sx={{ color: 'red' }}/></IconButton>

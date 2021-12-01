@@ -8,6 +8,11 @@ import { viewContext } from '../providers/ViewProvider';
 
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, Button, TextField } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea, CardActions } from '@mui/material';
 
 
 // Redux
@@ -115,29 +120,51 @@ const ItemView = () => {
     changeView(MENU);
   };
 
+  console.log(item.image_url);
+
   return (
-    <div>
-      <h1>{item.name}</h1>
-      <h3>Options:</h3>
-      <br />
-      <form onSubmit={(event) => handleSubmit(event)}>
+    <Card sx={{ width: '100%' }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="140"
+          image={item.image_url}
+          alt={item.name}
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {item.name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {item.description}
+          </Typography>
+          <Typography gutterBottom variant="h6" component="div">
+            Options:
+          </Typography>
+          <Typography>
+          <form onSubmit={(event) => handleSubmit(event)}>
         {options}
         <br />
         <div>
-          <TextField name="customOption" minRows={2} placeholder="Special Instructions" sx={{width: '100%'}} variant="standard"></TextField >
+          <TextField name="customOption" placeholder="Special Instructions" sx={{width: '100%'}} variant="standard"></TextField >
         </div>
-        <div style={{position: 'fixed', bottom: '10px', width: '100%', display: 'flex', justifyContent: 'center'}}>
+        <br />
+        <CardActions>
           <Button
             variant="contained"
             type="submit"
-            sx={{width: '95%'}}
-            >
-              Add to Order ${item.price}
+            sx={{width: '100%'}}
+          >
+              Add to Order ${item.price.toFixed(2)}
           </Button>
-        </div>
+        </CardActions>
       </form>
-    </div>
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   );
+
 
 }
 
