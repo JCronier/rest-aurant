@@ -5,9 +5,10 @@ import React, { useState } from "react";
 import { useContext } from 'react';
 import OrderProvider, { orderContext } from '../providers/OrderProvider';
 import { viewContext } from "../providers/ViewProvider";
-import CartList from "./CartList.js";
+import CartList from "./CartList/CartList.js";
 import { useDispatch, useSelector } from 'react-redux';
 import { editOrder } from '../actions/orders';
+import { Button } from '@mui/material';
 
 // View States
 const PAYBILL = 'PAYBILL';
@@ -18,6 +19,8 @@ const OrderedView = () => {
   const { changeView } = useContext(viewContext);
 
   const dispatch = useDispatch();
+
+  const items = useSelector((state) => state.items);
 
   const order = () => {
     // Prepare properties for Order document
@@ -41,14 +44,31 @@ const OrderedView = () => {
     // resetOrder();
   };
 
+  const subtotal = state.order.reduce((prev, curr) => {
+    return prev + (items.find((item) => item._id === curr.item_id).price)
+  }, 0.00);
+
   return (
     <div>
       <h1>Order #: {getOrderId()}</h1>
       <h3>Your order is on its way!</h3>
       <CartList />
-      <button onClick={() => order()}>ORDER</button>
-      <button onClick={() => changeView(MENU)}>MENU</button>
-      <button onClick={() => changeView(PAYBILL)}>PAY BILL</button>
+      <div style={{position: 'fixed', bottom: '10px', width: '100%', display: 'flex', justifyContent: 'space-around'}}>
+        <Button
+          variant="contained"
+          onClick={() => order()}
+          sx={{width: '200px'}}
+          >
+            Place Order Again
+        </Button>
+        <Button
+          variant="contained"
+          onClick={() => changeView(PAYBILL)}
+          sx={{width: '200px'}}
+          >
+            Pay Bill ${subtotal.toFixed(2)}
+        </Button>
+      </div>
     </div>
   );
 

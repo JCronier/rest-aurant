@@ -17,6 +17,9 @@ import { updateStatus } from '../actions/tables.js';
 import { Button, Typography } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
+// MUI
+import { Tabs, Tab } from "@mui/material";
+
 // View States
 const CART = 'CART';
 const ORDERED = 'ORDERED';
@@ -73,8 +76,8 @@ const Menu = () => {
     ))
   );
 
-  const changeMenuView = (id) => {
-    setMenuView(() => id);
+  const changeMenuView = (event, id) => {
+    setMenuView(id);
   };
 
   const checkOrderId = () => {
@@ -85,18 +88,18 @@ const Menu = () => {
 
   return (
     <div>
-      <div>
-        <button id={FOOD} onClick={(event) => changeMenuView(event.target.id)} >Food</button>
-        <button id={DRINK} onClick={(event) => changeMenuView(event.target.id)}>Drinks</button>
-        <button id={DESSERT} onClick={(event) => changeMenuView(event.target.id)}>Desserts</button>
-      </div>
+      <Tabs
+        value={menuView}
+        onChange={changeMenuView}
+        textColor="secondary"
+        indicatorColor="secondary"
+      >
+        <Tab id={FOOD} value={FOOD} label={FOOD} />
+        <Tab id={DRINK} value={DRINK} label={DRINK} />
+        <Tab id={DESSERT} value={DESSERT} label={DESSERT} />
+      </Tabs>
       <div>
         {!items.length ? "Loading..." : generateMenuItems(menuView)}
-      </div>
-      <br />
-      <div>
-        
-        {state.order.length > 0 && <Button startIcon={<ShoppingCartIcon />} variant="outlined" onClick={() => checkOrderId()}>CART</Button>}
       </div>
     </div>
   );

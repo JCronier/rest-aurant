@@ -1,6 +1,6 @@
 // React
 import React from 'react';
-import CartList from "./CartList.js";
+import CartList from "./CartList/CartList.js";
 
 // Context API
 import { useContext } from 'react';
@@ -10,6 +10,7 @@ import { viewContext } from '../providers/ViewProvider';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrder } from '../actions/orders';
+import { Button } from '@mui/material';
 
 // View States
 const MENU = 'MENU';
@@ -34,21 +35,9 @@ const CartView = () => {
   // adding an action as an argument.
   const dispatch = useDispatch();
 
-  // Populate cart with html structure representing
-  // each item added to the cart with corresponding
-  // chosen options.
-  const cart = state.order.map((cartItem) => {
-    return (
-      <div>
-        <div>
-          {items.find((item) => item._id === cartItem.item_id).name}
-        </div>
-        <ul>
-          {cartItem.optionValues.map((optionValue) => <li>{optionValue}<br /></li>)}
-        </ul>
-      </div>
-    )
-  });
+  const subtotal = state.order.reduce((prev, curr) => {
+    return prev + (items.find((item) => item._id === curr.item_id).price);
+  }, 0.00);
 
   // Changes view state to ORDERED and dispatches
   // an action to create a new order to the database.
@@ -79,16 +68,22 @@ const CartView = () => {
 
   return (
     <div>
-      <div>
-        <CartList />
-      </div>
-      <div>
-        <button onClick={() => changeView(MENU)}>MENU</button>
-      </div>
-      <br />
-      {/* makes a post request utilizing our current state to the orders document */}
-      <div>
-        <button onClick={() => order()}>ORDER</button>
+      {state.order.length > 0 ?
+       (
+        <>
+          <h3>Please review your order below</h3>
+          <CartList/>
+        </>
+       )
+       : (<h3>Your order is empty!</h3>)}
+      <div style={{position: 'fixed', bottom: '10px', width: '97%', display: 'flex', justifyContent: 'flex-start'}}>
+      {state.order.length > 0 && <Button
+          variant="contained"
+          onClick={() => order()}
+          sx={{width: '-webkit-fill-available'}}
+          >
+            Place Order ${subtotal.toFixed(2)}
+        </Button>}
       </div>
     </div>
   );

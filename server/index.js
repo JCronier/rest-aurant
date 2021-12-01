@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 
 dotenv.config();
 
@@ -28,9 +29,15 @@ app.use('/tables', tableRoutes);
 app.use('/paymentintent', paymentIntent);
 app.use('/receipts', receiptRoutes);
 
+app.use(express.static('/home/jordan/lighthouse/projects/rest-aurant/client/build'));
+
 // MongoDB
 const CONNECTION_URL = process.env.CONNECTION_URL
 const PORT = process.env.PORT || 3001;
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join('/home/jordan/lighthouse/projects/rest-aurant/client/build', 'index.html'));
+});
 
 mongoose.connect(CONNECTION_URL)
   .then(() => app.listen(PORT, () => console.log(`Server listening on PORT ${PORT}`)))

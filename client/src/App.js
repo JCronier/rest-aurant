@@ -12,6 +12,7 @@ import ItemView from './components/ItemView';
 import CartView from './components/CartView';
 import OrderedView from './components/OrderedView';
 import PayView from './components/PayView';
+import Nav from './components/Nav';
 
 // Context API
 import OrderProvider from "./providers/OrderProvider"
@@ -55,10 +56,8 @@ const App = () => {
   return (
     <div>
       <div>
-        <h1>I'THAI'LY</h1>
-      </div>
-      <div>
         <OrderProvider>
+          <Nav />
           {view[view.length - 1] === MENU && <Menu />}
           {view[view.length - 1] === ITEM && <ItemView />}
           {view[view.length - 1] === CART && <CartView />}

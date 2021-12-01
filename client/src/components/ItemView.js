@@ -6,6 +6,15 @@ import { useContext } from 'react';
 import { orderContext } from '../providers/OrderProvider';
 import { viewContext } from '../providers/ViewProvider';
 
+import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, Button, TextField } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea, CardActions } from '@mui/material';
+
+
 // Redux
 import { useSelector } from 'react-redux';
 
@@ -52,19 +61,34 @@ const ItemView = () => {
     setOptionsState(updatedOptionsState);
   };
 
-  // Generate checkbox-type input tags that represent options connected to 
+  // Generate checkbox-type input tags that represent options connected to
   // the item in focus.
   //
   // options, being an array of checkbox-type input tags, will then be
   // inserted within a form to be rendered.
   const options = item.options.map((option, index) => {
+
     return (
-      <div key={index}>
-        <input type="checkbox" name={option} value={option} checked={optionsState[index]} onChange={() => handleOnChange(index)}></input>
-        <label htmlFor={option}>{option}</label>
-      </div>
-    )
-  });
+      <ListItem
+        key={index}
+        disablePadding
+      >
+        <ListItemButton role={undefined} onClick={() => handleOnChange(index)} dense>
+          <ListItemIcon>
+            <Checkbox
+              edge="start"
+              checked={optionsState[index]}
+              value={option}
+              disableRipple
+            />
+          </ListItemIcon>
+          <ListItemText id={option} primary={option} />
+        </ListItemButton>
+      </ListItem>
+    );
+
+
+  })
 
   // Constructs the final list of options (including special instructions).
   const finalizeOptions = (specialInstruction) => {
@@ -96,26 +120,51 @@ const ItemView = () => {
     changeView(MENU);
   };
 
+  console.log(item.image_url);
+
   return (
-    <div>
-      <div>
-        {item.name}
-      </div>
-      <br />
-      <form onSubmit={(event) => handleSubmit(event)}>
+    <Card sx={{ width: '100%' }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="140"
+          image={item.image_url}
+          alt={item.name}
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {item.name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {item.description}
+          </Typography>
+          <Typography gutterBottom variant="h6" component="div">
+            Options:
+          </Typography>
+          <Typography>
+          <form onSubmit={(event) => handleSubmit(event)}>
         {options}
         <br />
         <div>
-          <textarea type="text" name="customOption" placeholder="Special Instructions"></textarea>
+          <TextField name="customOption" placeholder="Special Instructions" sx={{width: '100%'}} variant="standard"></TextField >
         </div>
         <br />
-        <div>
-          <button type="submit">ADD TO CART</button>
-          <button onClick={() => changeView(MENU)}>BACK TO MENU</button>
-        </div>
+        <CardActions>
+          <Button
+            variant="contained"
+            type="submit"
+            sx={{width: '100%'}}
+          >
+              Add to Order ${item.price.toFixed(2)}
+          </Button>
+        </CardActions>
       </form>
-    </div>
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   );
+
 
 }
 
