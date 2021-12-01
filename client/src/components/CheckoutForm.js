@@ -77,7 +77,7 @@ const CheckoutForm = (props) => {
       console.log(`table ${state.table} changed to PAID`)
       receipt(payload.paymentIntent.amount, payload.paymentIntent.id)
       setSucceeded(true)
-      updateOrderStatus(getOrderId() ,true)
+      updateOrderStatus(getOrderId(), { isPaid: true })
       destroyCookie();
     }
   };
