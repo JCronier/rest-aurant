@@ -15,6 +15,7 @@ import { orderContext } from "../providers/OrderProvider";
 import {CardElement, CardNumberElement, PaymentElement} from '@stripe/react-stripe-js';
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import Receipt from "./Receipt";
+import { Button, Typography } from "@mui/material";
 
 
 
@@ -22,7 +23,7 @@ import Receipt from "./Receipt";
 const CheckoutForm = (props) => {
 
   //our order state
-  const { state } = useContext(orderContext);
+  const { state, setPaid } = useContext(orderContext);
 
   //Allows the rendering of stripe API elements
   const stripe = useStripe();
@@ -67,7 +68,7 @@ const CheckoutForm = (props) => {
       //succesful payment logic
       setError(null);
       setProcessing(false);
-      setSucceeded(true);
+      setPaid(true);
       console.log('succesful payment: ',payload)
       //uses the built-in API function to send a patch request to our table
       updateTableStatus(state.table, "PAID")
@@ -75,8 +76,6 @@ const CheckoutForm = (props) => {
       receipt(payload.paymentIntent.amount, payload.paymentIntent.id)
     }
   };
-
-
 
   const receipt = (amountPaid, confirmationCode) => {
     const amount_paid = parseInt(amountPaid);
@@ -89,6 +88,7 @@ const CheckoutForm = (props) => {
     const receiptData = {amount_paid, table, items, options, confirmation_code, order_id}
     console.log('sending...', receiptData)
     dispatch(createReceipt(receiptData))
+    setSucceeded(true);
   }
 
   //Request to the server for payment secret
@@ -106,19 +106,31 @@ const CheckoutForm = (props) => {
   //do not remove, ensures that new secret is created whenever transaction total changes to match 
   [props.amount])
 
-  // const options = 'bluh'
+  const options = {
+    style: {
+
+      base: {
+        iconColor: "rgb(16, 179, 173)",
+        color: "rgb(6, 82, 158)",
+        fontSize: "16px",
+        fontFamily: '"Open Sans", sans-serif',
+        fontSmoothing: "antialiased"
+      }
+    }
+  }
+
+  const paymentStyle = {
+    width:'27em'
+  }
   
   return (
-    <div>
+    <div class="receipt-container">
     <form id="payment-form" onSubmit={handleSubmit}>
       {!succeeded && (
-        <div>
-          <CardElement id="card-element" onChange={handleChange}/>
-          <button disabled={processing || disabled || succeeded} id="submit">
-            <span id="button-text">
-              {processing ? <div className="spinner" id="spinner"></div> : "Pay"}
-            </span>
-          </button>
+        <div className="payment-input" style={paymentStyle}>
+          <CardElement id="card-element" onChange={handleChange} options={options}/>
+
+          <Button disabled={processing || disabled || succeeded} variant="contained"  id="submit" type="submit">{processing ? "Processing.." : "Pay" }</Button>
         </div>
       )}
       
@@ -126,7 +138,7 @@ const CheckoutForm = (props) => {
         <div className="card-error" role="alert">{error}</div>
       )}
       {succeeded && (
-        <p className={succeeded ? "result-message" : "result-message hidden"}>Payment succeeded!</p>
+        <div className={succeeded ? "result-message" : "result-message hidden"}><Typography>Payment succeeded!</Typography></div>
       )}
     </form>
       {succeeded && (

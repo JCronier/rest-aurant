@@ -3,19 +3,45 @@ import React from "react";
 // Context API
 import { useContext, useState } from 'react';
 import { orderContext } from '../providers/OrderProvider';
-import { viewContext } from "../providers/ViewProvider";
-
-// // Stripe API
-// import {loadStripe} from '@stripe/stripe-js';
-// import {Elements} from '@stripe/react-stripe-js';
+// import { viewContext } from "../providers/ViewProvider";
 
 //Redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 //Components for the Stripe API
 import CheckoutForm from "./CheckoutForm";
-// import Receipt from "./Receipt";
 
+//Material UI
+import Button from '@mui/material/Button';
+import { TextField, Typography } from "@mui/material";
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.common.black,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
 
 const PayView = () => {
@@ -29,16 +55,51 @@ const PayView = () => {
   //database pull
   const items = useSelector((state) => state.items);
 
-  //maps the cart 
-  const cart = state.order.map((cartItem) => {
-    const itemObj = items.find((item) => item._id ===  cartItem.item_id)
+  const rows = state.order.map((cartItem) => {
+    const itemObj = items.find((item) => item._id === cartItem.item_id)
 
     return (
-      <div key={cartItem.item_id}>
-        {itemObj.name} || {itemObj.price}
-      </div>
+      { 
+        'name': itemObj.name,
+        'price': itemObj.price
+      }
     )
   })
+  const OrderTable = () => {
+    return (
+      <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 200 }} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>Item</StyledTableCell>
+            <StyledTableCell align="right">Price</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <StyledTableRow key={row.name}>
+              <StyledTableCell component="th" scope="row">
+                {row.name}
+              </StyledTableCell>
+              <StyledTableCell align="right">{row.price}</StyledTableCell>
+            </StyledTableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+    )
+  }
+  
+  //maps the cart || DEPRECATED
+  // const cart = state.order.map((cartItem) => {
+  //   const itemObj = items.find((item) => item._id ===  cartItem.item_id)
+
+  //   return (
+  //     <div key={cartItem.item_id}>
+  //       {itemObj.name} || {itemObj.price}
+  //     </div>
+  //   )
+  // })
 
   const subtotal = (orderState) => {
     let result = 0;
@@ -63,21 +124,32 @@ const PayView = () => {
 
   return (
     <div>
-      <h1>Pay your bill</h1>
+      <Typography variant="h2" component="h2">
+        Pay your bill
+      </Typography>
 
-      Your order:
-        {cart}
-      Your subtotal:
-      {` $${parseFloat(subtotal(state.order)) / 100} CAD`}
+      <Typography variant="h4">Your order:</Typography>
       <div>
-        Tip Amount: 
-        <button onClick={() => setTipState(tips(subtotal(state.order))[0]*100)} >15%: {tips(subtotal(state.order))[0]}</button>  
-        <button  onClick={() => setTipState(tips(subtotal(state.order))[1]*100)} >18%: {tips(subtotal(state.order))[1]}</button>  
-        <button  onClick={() => setTipState(tips(subtotal(state.order))[2]*100)}>20%: {tips(subtotal(state.order))[2]}</button> 
-        Custom Amount: %<input type="number" min="0" max="100" pattern="^[1-9]\d*$" onChange={(event) =>  event.target.value < 0 ? console.log('invalid number') : setTipState(((event.target.value/100) * subtotal(state.order)))}></input>
+        {OrderTable()}
       </div>
-      Your Total: ${total /100} CAD
-        <CheckoutForm amount={total}/>
+      <Typography>Subtotal: {` $${parseFloat(subtotal(state.order)) / 100} CAD`}</Typography>
+      {!state.paid && (
+        <div>
+          <Typography>Tip Amount:</Typography>
+          <div>
+            <Button variant="outlined" size="small" onClick={() => setTipState(tips(subtotal(state.order))[0]*100)}>15%: ${tips(subtotal(state.order))[0]}</Button>
+            <Button variant="outlined" size="small" onClick={() => setTipState(tips(subtotal(state.order))[1]*100)}>18%: ${tips(subtotal(state.order))[1]}</Button>
+            <Button variant="outlined" size="small" onClick={() => setTipState(tips(subtotal(state.order))[2]*100)}>20%: ${tips(subtotal(state.order))[2]}</Button>
+            <div>
+              <Typography>Custom Amount:</Typography>
+              <TextField size="small" label="Tip %" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} onChange={(event) =>  event.target.value < 0 ? console.log('invalid number') : setTipState(((event.target.value/100) * subtotal(state.order)))} />
+            </div>
+          </div>
+        </div>
+      )}
+      <Typography>Your Total: ${(total /100).toFixed(2)} CAD</Typography>
+      <CheckoutForm amount={total}/>
+      
     </div>
   );
 };

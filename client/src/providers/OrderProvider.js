@@ -24,7 +24,8 @@ export default function OrderProvider(props) {
   const [state, setState] = useState({
     item: null,
     order: [],
-    table: null
+    table: null,
+    paid: false
   });
 
   const [ cookies, setCookies ] = useCookies(['customer']);
@@ -85,7 +86,11 @@ export default function OrderProvider(props) {
     setCookies('customer', ({ ...cookies.customer, order: cookies.customer.order.filter((item, index) => index !== itemIndex)}));
   };
 
-  const data = { state, setItem, addItemToOrder, resetItem, resetOrder, initCookie, setOrderId, getOrderId, removeItemFromOrder };
+  const setPaid = (isPaid) => {
+    setState((prev) => ({...prev, paid: isPaid}))
+  }
+
+  const data = { state, setItem, addItemToOrder, resetItem, resetOrder, initCookie, setOrderId, getOrderId, removeItemFromOrder, setPaid };
 
   return (
     <orderContext.Provider value={data}>
