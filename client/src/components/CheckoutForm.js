@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { orderContext } from "../providers/OrderProvider";
 
 //Stripe API
-import {CardElement, CardNumberElement, PaymentElement} from '@stripe/react-stripe-js';
+import { CardElement, CardNumberElement, PaymentElement } from '@stripe/react-stripe-js';
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import Receipt from "./Receipt";
 import { Button, Typography } from "@mui/material";
@@ -64,15 +64,15 @@ const CheckoutForm = (props) => {
     if (payload.error) {
       setError(`Payment failed ${payload.error.message}`);
       setProcessing(false);
-      console.log('error occured: ',payload)
+      console.log('error occured: ', payload)
     } else {
       //succesful payment logic
       setError(null);
       setProcessing(false);
       setPaid(true);
-      console.log('succesful payment: ',payload)
+      console.log('succesful payment: ', payload)
       //uses the built-in API function to send a patch request to our table
-      updateTableStatus(state.table, "PAID")
+      // updateTableStatus(state.table, "PAID")
       console.log(`table ${state.table} changed to PAID`)
       receipt(payload.paymentIntent.amount, payload.paymentIntent.id)
       setSucceeded(true)
@@ -88,7 +88,7 @@ const CheckoutForm = (props) => {
     const confirmation_code = confirmationCode;
     const order_id = getOrderId()
     console.log('order id is', order_id)
-    const receiptData = {amount_paid, table, items, options, confirmation_code, order_id}
+    const receiptData = { amount_paid, table, items, options, confirmation_code, order_id }
     console.log('sending...', receiptData)
     setReceiptID(order_id)
     dispatch(createReceipt(receiptData))
@@ -104,10 +104,10 @@ const CheckoutForm = (props) => {
     ).then(
       console.log(secret)
     )
-    
+
   },
-  //do not remove, ensures that new secret is created whenever transaction total changes to match 
-  [props.amount])
+    //do not remove, ensures that new secret is created whenever transaction total changes to match 
+    [props.amount])
 
   const options = {
     style: {
@@ -123,32 +123,32 @@ const CheckoutForm = (props) => {
   }
 
   const paymentStyle = {
-    width:'27em'
+    width: '27em'
   }
-  
+
   return (
     <div class="receipt-container">
-    <form id="payment-form" onSubmit={handleSubmit}>
-      {!succeeded && (
-        <div className="payment-input" style={paymentStyle}>
-          <CardElement id="card-element" onChange={handleChange} options={options}/>
+      <form id="payment-form" onSubmit={handleSubmit}>
+        {!succeeded && (
+          <div className="payment-input" style={paymentStyle}>
+            <CardElement id="card-element" onChange={handleChange} options={options} />
 
-          <Button disabled={processing || disabled || succeeded} variant="contained"  id="submit" type="submit">{processing ? "Processing.." : "Pay" }</Button>
-        </div>
-      )}
-      
-      {error && (
-        <div className="card-error" role="alert">{error}</div>
-      )}
+            <Button disabled={processing || disabled || succeeded} variant="contained" id="submit" type="submit">{processing ? "Processing.." : "Pay"}</Button>
+          </div>
+        )}
+
+        {error && (
+          <div className="card-error" role="alert">{error}</div>
+        )}
+        {succeeded && (
+          <div className={succeeded ? "result-message" : "result-message hidden"}><Typography>Payment succeeded!</Typography></div>
+        )}
+      </form>
       {succeeded && (
-        <div className={succeeded ? "result-message" : "result-message hidden"}><Typography>Payment succeeded!</Typography></div>
-      )}
-    </form>
-      {succeeded && (
-        <Receipt receiptOrderId={receiptID}/>
+        <Receipt receiptOrderId={receiptID} />
       )}
     </div>
-    
+
   )
 
 }

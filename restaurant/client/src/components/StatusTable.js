@@ -22,7 +22,7 @@ const StatusTable = () => {
   const tables = useSelector((state) => state.tables);
 
   const getOrderedItemsAndOptions = (tableId) => {
-    const ordersForTableId = orders.filter((order) => order.table === tableId);
+    const ordersForTableId = orders.filter((order) => (order.table === tableId && order.isPaid === false));
 
     let orderedItemsAndOptionsForTableId = [];
 
