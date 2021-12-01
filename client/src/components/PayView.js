@@ -147,7 +147,7 @@ const PayView = () => {
           </div>
         </div>
       )}
-      <Typography>Your Total: ${total /100} CAD</Typography>
+      <Typography>Your Total: ${(total /100).toFixed(2)} CAD</Typography>
       <CheckoutForm amount={total}/>
       
     </div>

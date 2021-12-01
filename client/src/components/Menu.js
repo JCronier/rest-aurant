@@ -14,6 +14,8 @@ import MenuItem from './MenuItem';
 
 // Actions
 import { updateStatus } from '../actions/tables.js';
+import { Button, Typography } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 // View States
 const CART = 'CART';
@@ -79,6 +81,8 @@ const Menu = () => {
     getOrderId() ? changeView(ORDERED) : changeView(CART);
   };
 
+
+
   return (
     <div>
       <div>
@@ -91,7 +95,8 @@ const Menu = () => {
       </div>
       <br />
       <div>
-        {state.order.length > 0 && <button onClick={() => checkOrderId()}>CART</button>}
+        
+        {state.order.length > 0 && <Button startIcon={<ShoppingCartIcon />} variant="outlined" onClick={() => checkOrderId()}>CART</Button>}
       </div>
     </div>
   );
