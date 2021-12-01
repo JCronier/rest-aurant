@@ -73,7 +73,7 @@ const CheckoutForm = (props) => {
       setPaid(true);
       console.log('succesful payment: ',payload)
       //uses the built-in API function to send a patch request to our table
-      updateTableStatus(state.table, "PAID")
+      // updateTableStatus(state.table, "PAID")
       console.log(`table ${state.table} changed to PAID`)
       receipt(payload.paymentIntent.amount, payload.paymentIntent.id)
       setSucceeded(true)
