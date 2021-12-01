@@ -56,7 +56,7 @@ const ItemList = ({ setCurrentItemId, setViewState }) => {
         photo: item.image_url,
         item: item.name,
         category: item.category,
-        price: item.price,
+        price: (item.price).toFixed(2),
         description: item.description,
         options: item.options.join(', '),
         tags: item.tags.join(', '),
