@@ -62,7 +62,7 @@ const Menu = () => {
 
     return items.filter((item) => {
       const itemName = item.name.toLowerCase();
-      return itemName.includes(query) || filterTags(item.tags, query);
+      return itemName.includes(query.toLowerCase()) || filterTags(item.tags, query.toLowerCase());
     });
   };
 
@@ -108,9 +108,6 @@ const Menu = () => {
   const checkOrderId = () => {
     getOrderId() ? changeView(ORDERED) : changeView(CART);
   };
-
-  console.log(searchQuery)
-
 
   return (
     <div>

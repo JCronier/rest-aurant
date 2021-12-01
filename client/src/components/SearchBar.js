@@ -7,18 +7,11 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => (
           <TextField
             name="s"
             placeholder="Search Menu"
-            sx={{width: '85%'}}
+            sx={{width: '100%'}}
             variant="standard"
             onInput={e => setSearchQuery(e.target.value)}
             value={searchQuery}
           />
-        <Button
-            variant="contained"
-            type="submit"
-            sx={{width: '10%'}}
-          >
-              Search
-          </Button>
         </div>
   </form>
 );
