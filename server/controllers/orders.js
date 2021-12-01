@@ -41,9 +41,9 @@ export const updateOrderStatus = async (req, res) => {
   const { isPaid } = req.body
 
   try {
-    await Order.findOneAndUpdate({id}, {isPaid});
+    await Order.findOneAndUpdate({ id }, { isPaid });
     res.status(204).send("Updated succesfully")
-  }  catch (error) {
+  } catch (error) {
     res.status(409).json({ message: error.message })
   }
 }
@@ -52,10 +52,10 @@ export const putOrder = async (req, res) => {
   const updatedOrder = req.body;
 
   try {
-    await Order.findOneAndReplace({ id: id }, {...updatedOrder});
+    await Order.findOneAndReplace({ id: id }, { ...updatedOrder });
 
     res.status(202).json(updatedOrder);
-  } catch(error) {
+  } catch (error) {
     console.log(error.message);
   };
 };

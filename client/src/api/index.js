@@ -13,7 +13,6 @@ const orders_url = `${api_url}/orders`;
 export const fetchOrders = () => axios.get(orders_url);
 export const createOrder = (newOrder) => axios.post(orders_url, newOrder);
 export const updateOrderPaymentStatus = (id, isPaid) => axios.patch(orders_url + `/status/${id}`, { isPaid })
-
 export const putOrder = (newOrder) => axios.put(orders_url + `/${newOrder.id}`, newOrder);
 
 // Tables
