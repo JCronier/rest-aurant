@@ -47,6 +47,12 @@ const App = () => {
     dispatch(getTables());
   }, [dispatch]);
 
+  const tableFormContainerStyle = {
+    display: 'flex',
+    width: '100%',
+    'justify-content': 'center'
+  }
+
   return (
     <Container maxWidth={false} sx={{ width: '100%' }}>
       {
@@ -75,7 +81,9 @@ const App = () => {
               <Button variant="contained" size="medium" startIcon={<TableRestaurantIcon />} onClick={() => setViewState(TABLE_LIST)}>Manage Tables</Button>
             </Stack>
             <br />
-            <ItemForm currentItemId={currentItemId} setCurrentItemId={setCurrentItemId} />
+            <div style={tableFormContainerStyle}>
+              <ItemForm currentItemId={currentItemId} setCurrentItemId={setCurrentItemId} />
+            </div>
             <br />
             <ItemList setCurrentItemId={setCurrentItemId} setViewState={setViewState} />
           </Container>
@@ -92,7 +100,9 @@ const App = () => {
               <Button variant="contained" size="medium" startIcon={<FastfoodIcon />} onClick={() => setViewState(ITEM_LIST)}>Manage Items</Button>
             </Stack>
             <br />
-            <TableForm />
+            <div style={tableFormContainerStyle}>
+              <TableForm />
+            </div>
             <br />
             <TableList setViewState={setViewState} />
           </Container>
