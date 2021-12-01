@@ -23,7 +23,7 @@ import { Button, Typography } from "@mui/material";
 const CheckoutForm = (props) => {
 
   //our order state
-  const { state, setPaid } = useContext(orderContext);
+  const { state, setPaid, getOrderId, destroyCookie } = useContext(orderContext);
 
   //Allows the rendering of stripe API elements
   const stripe = useStripe();
@@ -42,6 +42,7 @@ const CheckoutForm = (props) => {
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState("");
   const [disabled, setDisabled] = useState(true);
+  const [receiptID, setReceiptID] = useState(null);
 
   const handleChange = async (event) => {
     // Listen for changes in the CardElement and display any errors as the customer types their card details
@@ -74,6 +75,8 @@ const CheckoutForm = (props) => {
       updateTableStatus(state.table, "PAID")
       console.log(`table ${state.table} changed to PAID`)
       receipt(payload.paymentIntent.amount, payload.paymentIntent.id)
+      setSucceeded(true)
+      destroyCookie();
     }
   };
 
@@ -83,12 +86,12 @@ const CheckoutForm = (props) => {
     const items = state.order.map((item) => item.item_id);
     const options = state.order;
     const confirmation_code = confirmationCode;
-    const order_id = orders.length
-
+    const order_id = getOrderId()
+    console.log('order id is', order_id)
     const receiptData = {amount_paid, table, items, options, confirmation_code, order_id}
     console.log('sending...', receiptData)
+    setReceiptID(order_id)
     dispatch(createReceipt(receiptData))
-    setSucceeded(true);
   }
 
   //Request to the server for payment secret
@@ -142,7 +145,7 @@ const CheckoutForm = (props) => {
       )}
     </form>
       {succeeded && (
-        <Receipt receiptOrderId={orders.length}/>
+        <Receipt receiptOrderId={receiptID}/>
       )}
     </div>
     
