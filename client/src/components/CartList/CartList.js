@@ -57,8 +57,8 @@ const CartList = () => {
         {state.order.map((cartItem, index) => (
           <StyledTableRow key={items.find((item) => item._id === cartItem.item_id).name}>
             <StyledTableCell component="th" scope="row">
-              {items.find((item) => item._id === cartItem.item_id).name}
-              {cartItem.optionValues.map((optionValue) => <ListItem color="secondary">{optionValue}</ListItem>)}
+              <b>{items.find((item) => item._id === cartItem.item_id).name}</b>
+              {cartItem.optionValues.map((optionValue) => <li>{optionValue}</li>)}
             </StyledTableCell>
             <StyledTableCell align="right">${items.find((item) => item._id === cartItem.item_id).price.toFixed(2)}</StyledTableCell>
             <StyledTableCell align="right">
