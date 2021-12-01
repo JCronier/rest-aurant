@@ -37,7 +37,7 @@ const CONNECTION_URL = process.env.CONNECTION_URL
 const PORT = process.env.PORT || 3001;
 
 app.get('/', function(req, res) {
-  res.sendFile(path.join('/Users/tommyson/rest-aurant/client/build', 'index.html'));
+  res.sendFile(path.join('/home/jordan/lighthouse/projects/rest-aurant/client/build', 'index.html'));
 });
 
 app.get('/admin', function (req, res) {
