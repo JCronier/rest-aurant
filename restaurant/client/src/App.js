@@ -61,7 +61,7 @@ const App = () => {
         viewState === DASHBOARD && (
           <Container maxWidth={false} sx={{ width: '100%' }}>
             <br />
-            <Typography variant="h4" align="center">I'THAI'LY - Admin Dashboard</Typography>
+            <Typography variant="h4" align="center">I'Thai'ly - Admin Dashboard</Typography>
             <br />
             <Stack spacing={2}>
               <Button variant="contained" size="medium" startIcon={<FastfoodIcon />} onClick={() => setViewState(ITEM_LIST)}>Manage Items</Button>
@@ -76,7 +76,7 @@ const App = () => {
         viewState === ITEM_LIST && (
           <Container maxWidth={false} sx={{ width: '100%' }}>
             <br />
-            <Typography variant="h4" align="center">I'THAI'LY - Manage Items</Typography>
+            <Typography variant="h4" align="center">I'Thai'ly - Manage Items</Typography>
             <br />
             <Stack spacing={2}>
               <Button variant="contained" size="medium" startIcon={<DashboardIcon />} onClick={() => setViewState(DASHBOARD)}>DASHBOARD</Button>
@@ -92,7 +92,7 @@ const App = () => {
               setSearchQuery={setSearchQuery}
             />
             <br />
-            <ItemList setCurrentItemId={setCurrentItemId} setViewState={setViewState} searchQuery={searchQuery}/>
+            <ItemList setCurrentItemId={setCurrentItemId} setViewState={setViewState} searchQuery={searchQuery} />
           </Container>
         )
       }
@@ -100,7 +100,7 @@ const App = () => {
         viewState === TABLE_LIST && (
           <Container maxWidth={false} sx={{ width: '100%' }}>
             <br />
-            <Typography variant="h4" align="center">I'THAI'LY - Manage Tables</Typography>
+            <Typography variant="h4" align="center">I'Thai'ly - Manage Tables</Typography>
             <br />
             <Stack spacing={2}>
               <Button variant="contained" size="medium" startIcon={<DashboardIcon />} onClick={() => setViewState(DASHBOARD)}>DASHBOARD</Button>

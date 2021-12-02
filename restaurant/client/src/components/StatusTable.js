@@ -33,9 +33,39 @@ const StatusTable = () => {
     return orderedItemsAndOptionsForTableId;
   };
 
+  const helpMeGod = (table) => {
+    // Number of total orders for a given table.
+    // console.log(orders, table);
+
+    const numberOfOrdersForTable = orders.filter((order) => order.table === table).length; // 1
+
+
+
+    if (numberOfOrdersForTable === 0 || tables[table - 1].status === "VACANT") {
+      // console.log('executing', numberOfOrdersForTable)
+      return false;
+    }
+
+    // Number of total orders for a given table that have been paid.
+    const ordersForTablePaid = orders.filter((order) => order.table === table && order.isPaid === true).length; // 0
+
+    // Has all orders for a given table been paid?
+    const isAllOrdersForTablePaid = (numberOfOrdersForTable === ordersForTablePaid); // Yes
+
+    console.log(isAllOrdersForTablePaid, numberOfOrdersForTable, ordersForTablePaid)
+
+    return isAllOrdersForTablePaid;
+
+    // console.log(isAllOrdersForTablePaid)
+
+    // if (isAllOrdersForTablePaid) {
+    //   updateTableStatus(PAID);
+    // }
+  };
+
   const generateStatusTableRows = () => (
     tables.map((table) => (
-      <StatusTableRow key={table.id} table={table} orderedItemsAndOptions={getOrderedItemsAndOptions(table.id)} />
+      <StatusTableRow key={table.id} table={table} orderedItemsAndOptions={getOrderedItemsAndOptions(table.id)} isPaid={helpMeGod(table.id)} />
     ))
   );
 

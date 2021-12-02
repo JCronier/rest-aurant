@@ -3,7 +3,7 @@ import { orderContext } from '../providers/OrderProvider';
 import { viewContext } from '../providers/ViewProvider';
 
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
-import { Button, IconButton, Avatar } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -26,35 +26,35 @@ const Nav = () => {
 
   return (
     <div>
-    <AppBar position="static">
-    <Container maxWidth="xl">
-      <Toolbar disableGutters>
-        <Box sx={{ flexGrow: 1, display: { xs: 'block', md: 'flex' } }}>
-          {pages.map((page) => (
-            <Button
-              key={page}
-              onClick={() => changeView(MENU)}
-              sx={{ my: 2, color: 'white', display: 'block' }}
+      <AppBar position="static">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Box sx={{ flexGrow: 1, display: { xs: 'block', md: 'flex' } }}>
+              {pages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={() => changeView(MENU)}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {page}
+                </Button>
+              ))}
+            </Box>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
             >
-              {page}
-            </Button>
-          ))}
-        </Box>
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-        >
-          I'thai'ly
-        </Typography>
-        <Box sx={{ flexGrow: 0 }}>
-          {<IconButton title="Cart" onClick={() => checkOrderId()}><ShoppingCartRoundedIcon sx={{ color: 'white' }} /><div className='total' >{state.order.length}</div></IconButton>}
-        </Box>
-      </Toolbar>
-    </Container>
-    </AppBar>
-  </div>
+              I'Thai'ly
+            </Typography>
+            <Box sx={{ flexGrow: 0 }}>
+              {<IconButton title="Cart" onClick={() => checkOrderId()}><ShoppingCartRoundedIcon sx={{ color: 'white' }} /><div className='total' >{state.order.length}</div></IconButton>}
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </div>
   );
 };
 

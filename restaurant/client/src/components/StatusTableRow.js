@@ -1,5 +1,5 @@
 // React
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Redux
 import { useSelector } from 'react-redux';
@@ -18,7 +18,7 @@ const VACANT = 'VACANT';
 const OCCUPIED = 'OCCUPIED';
 const PAID = 'PAID';
 
-const StatusTableRow = ({ table, orderedItemsAndOptions }) => {
+const StatusTableRow = ({ table, orderedItemsAndOptions, isPaid }) => {
 
   const items = useSelector((state) => state.items);
   const orders = useSelector((state) => state.orders);
@@ -48,6 +48,59 @@ const StatusTableRow = ({ table, orderedItemsAndOptions }) => {
     });
   };
 
+  const updateTableStatus = (TABLE_STATUS) => {
+    setTableData({ ...tableData, status: TABLE_STATUS });
+    dispatch(updateTable(tableData.id, { ...tableData, status: TABLE_STATUS }));
+  };
+
+  // useEffect(() => {
+  //   // Number of total orders for a given table.
+  //   const numberOfOrdersForTable = orders.filter((order) => order.table === table.id).length; // 2
+
+  //   if (numberOfOrdersForTable === 0) {
+  //     updateTableStatus(VACANT);
+  //     return;
+  //   }
+
+
+
+  //   // Number of total orders for a given table that have been paid.
+  //   const ordersForTablePaid = orders.filter((order) => order.table === table.id && order.isPaid === false).length; // 2
+
+  //   // Has all orders for a given table been paid?
+  //   const isAllOrdersForTablePaid = (numberOfOrdersForTable === ordersForTablePaid); // Yes
+
+  //   console.log(isAllOrdersForTablePaid)
+
+  //   if (isAllOrdersForTablePaid) {
+  //     updateTableStatus(PAID);
+  //   }
+  // }, []);
+
+  // const helpMeGod = () => {
+  //   // Number of total orders for a given table.
+  //   const numberOfOrdersForTable = orders.filter((order) => order.table === table.id).length; // 2
+
+  //   if (numberOfOrdersForTable === 0) {
+  //     updateTableStatus(VACANT);
+  //     return;
+  //   }
+
+  //   // Number of total orders for a given table that have been paid.
+  //   const ordersForTablePaid = orders.filter((order) => order.table === table.id && order.isPaid === false).length; // 2
+
+  //   // Has all orders for a given table been paid?
+  //   const isAllOrdersForTablePaid = (numberOfOrdersForTable === ordersForTablePaid); // Yes
+
+  //   console.log(isAllOrdersForTablePaid)
+
+  //   if (isAllOrdersForTablePaid) {
+  //     updateTableStatus(PAID);
+  //   }
+  // };
+
+  // helpMeGod();
+
   const getTableTotal = () => {
     const ordersForTable = orders.filter((order) => order.table === table.id && order.isPaid === false);
 
@@ -69,10 +122,10 @@ const StatusTableRow = ({ table, orderedItemsAndOptions }) => {
   };
 
   const listTableStatuses = () => {
-    const updateTableStatus = (TABLE_STATUS) => {
-      setTableData({ ...tableData, status: TABLE_STATUS });
-      dispatch(updateTable(tableData.id, { ...tableData, status: TABLE_STATUS }));
-    };
+    // const updateTableStatus = (TABLE_STATUS) => {
+    //   setTableData({ ...tableData, status: TABLE_STATUS });
+    //   dispatch(updateTable(tableData.id, { ...tableData, status: TABLE_STATUS }));
+    // };
 
     return [
       <Button onClick={(event) => {
@@ -101,16 +154,16 @@ const StatusTableRow = ({ table, orderedItemsAndOptions }) => {
       <TableCell>{(tables.length > 0) && table.id}</TableCell>
       <TableCell align="left">
         {
-          (tables.length > 0 && table.status === VACANT)
+          (table.status === VACANT && isPaid === false)
           && <Chip label={table.status} sx={{ color: 'white', bgcolor: 'dodgerblue' }} />
         }
         {
-          (tables.length > 0 && table.status === OCCUPIED)
+          (table.status === OCCUPIED && isPaid === false)
           && <Chip label={table.status} sx={{ color: 'white', bgcolor: 'orange' }} />
         }
         {
-          (tables.length > 0 && table.status === PAID)
-          && <Chip label={table.status} sx={{ color: 'white', bgcolor: 'mediumseagreen' }} />
+          (isPaid === true)
+          && <Chip label='PAID' sx={{ color: 'white', bgcolor: 'mediumseagreen' }} />
         }
       </TableCell>
       <TableCell align="left">{(items.length > 0 && orders.length > 0 && tables.length > 0) ? renderItemsAndOptions() : 'NO ORDERS'}</TableCell>
