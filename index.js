@@ -31,16 +31,16 @@ app.use('/tables', tableRoutes);
 app.use('/paymentintent', paymentIntent);
 app.use('/receipts', receiptRoutes);
 
-// app.use(express.static(path.join(__dirname + '/client/build')));
+app.use(express.static(path.join(__dirname + '/client/build')));
 // app.use(express.static(path.join(__dirname +  'restaurant/client/build')));
 
 // MongoDB
 const CONNECTION_URL = process.env.CONNECTION_URL
 const PORT = process.env.PORT || 3001;
 
-// app.get('/', function(req, res) {
-//   res.sendFile(path.join(__dirname + '/client/build', 'index.html'));
-// });
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname + '/client/build', 'index.html'));
+});
 
 // app.get('/admin', function (req, res) {
 //   res.sendFile(path.join(__dirname +  'restaurant/client/build', 'index.html'));
