@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "seed": "node seeds",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build && cd .. && cd restaurant/client && npm install && npm run build"
   },
   "keywords": [],
   "author": "",

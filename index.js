@@ -34,7 +34,7 @@ app.use('/receipts', receiptRoutes);
 // live from new york
 
 app.use(express.static(path.join(__dirname + '/client/build')));
-// app.use(express.static(path.join(__dirname +  'restaurant/client/build')));
+app.use(express.static(path.join(__dirname +  'restaurant/client/build')));
 
 // MongoDB
 const CONNECTION_URL = process.env.CONNECTION_URL
@@ -44,9 +44,9 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname + '/client/build', 'index.html'));
 });
 
-// app.get('/admin', function (req, res) {
-//   res.sendFile(path.join(__dirname +  'restaurant/client/build', 'index.html'));
-// });
+app.get('/admin', function (req, res) {
+  res.sendFile(path.join(__dirname +  'restaurant/client/build', 'index.html'));
+});
 
 mongoose.connect(CONNECTION_URL)
   .then(() => app.listen(PORT, () => console.log(`Server listening on PORT ${PORT}`)))
