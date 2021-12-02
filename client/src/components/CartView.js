@@ -76,11 +76,11 @@ const CartView = () => {
         </>
        )
        : (<h3>Your order is empty!</h3>)}
-      <div style={{position: 'fixed', bottom: '10px', width: '97%', display: 'flex', justifyContent: 'flex-start'}}>
+      <div style={{position: 'fixed', left: 0, bottom: '10px', width: '100%', display: 'flex', justifyContent: 'center'}}>
       {state.order.length > 0 && <Button
           variant="contained"
           onClick={() => order()}
-          sx={{width: '-webkit-fill-available'}}
+          sx={{width: '100%'}}
           >
             Place Order ${subtotal.toFixed(2)}
         </Button>}

@@ -53,7 +53,7 @@ const OrderedView = () => {
       <h1>Order #: {getOrderId()}</h1>
       <h3>Your order is on its way!</h3>
       <CartList />
-      <div style={{position: 'fixed', bottom: '10px', width: '100%', display: 'flex', justifyContent: 'space-around'}}>
+      <div style={{position: 'fixed', left: 0, bottom: '10px', width: '100%', display: 'flex', justifyContent: 'space-around'}}>
         <Button
           variant="contained"
           onClick={() => order()}
