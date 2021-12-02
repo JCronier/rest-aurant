@@ -34,7 +34,7 @@ app.use('/receipts', receiptRoutes);
 // live from new york
 
 app.use(express.static(path.join(__dirname + '/client/build')));
-app.use(express.static(path.join(__dirname +  'restaurant/client/build')));
+app.use(express.static(path.join(__dirname +  '/restaurant/client/build')));
 
 // MongoDB
 const CONNECTION_URL = process.env.CONNECTION_URL
