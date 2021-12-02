@@ -45,7 +45,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/admin', function (req, res) {
-  res.sendFile(path.join(__dirname +  'restaurant/client/build', 'index.html'));
+  res.sendFile(path.join(__dirname +  '/restaurant/client/build', 'index.html'));
 });
 
 mongoose.connect(CONNECTION_URL)
