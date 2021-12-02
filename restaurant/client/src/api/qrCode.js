@@ -4,7 +4,7 @@ const api_url = process.env.REACT_APP_NGROK_URL
 
 const qrCode = async (id) => {
   const qrObject = {
-    data: `${api_url}/?table=${id}`,
+    data: `${api_url}?table=${id}`,
     size: 300,
     download: true,
     file: 'svg'
