@@ -79,7 +79,7 @@ const CheckoutForm = (props) => {
       setSucceeded(true);
       updateOrderStatus(getOrderId(), true);
       destroyCookie();
-      resetOrder();
+      // resetOrder();
     }
   };
 
@@ -126,7 +126,7 @@ const CheckoutForm = (props) => {
   }
 
   const paymentStyle = {
-    width: '27em'
+    width: '90%'
   }
 
   return (
