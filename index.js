@@ -31,6 +31,8 @@ app.use('/tables', tableRoutes);
 app.use('/paymentintent', paymentIntent);
 app.use('/receipts', receiptRoutes);
 
+// live from new york
+
 app.use(express.static(path.join(__dirname + '/client/build')));
 // app.use(express.static(path.join(__dirname +  'restaurant/client/build')));
 
